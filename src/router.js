@@ -44,11 +44,12 @@ function VerifyInToken(req, res, next) {
 }
 
 router.get("/", (req, res) => {
-  res.json({ key: "value" });
+  res.json({ key: "et" });
 });
 
 router.post("/", GenerateToken, (req, res) => {
-  res.json({ new: "der" });
+  fetch(req.body.URL).then((res) => console.log(res));
+  res.send("i");
 });
 
 module.exports = router;

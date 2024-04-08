@@ -1,0 +1,27 @@
+[
+    {
+        "datosPersonales":[
+            {
+                "id": "1",
+                "nombre":"Eric Arturo Martinez Acelas",
+                "fechaDeNaciminto": "16-06-1992",
+                "nacionalidad": "colombiano"
+            },{
+                "id": "2",
+                "nombre":"Eric Arturo Martinez Acelas",
+                "fechaDeNaciminto": "16-06-1992",
+                "nacionalidad": "colombiano"
+            },{
+                "id": "3",
+                "nombre":"Eric Arturo Martinez Acelas",
+                "fechaDeNaciminto": "16-06-1992",
+                "nacionalidad": "colombiano"
+            },{
+                "id": "4",
+                "nombre":"Juan José Domin Acelas",
+                "fechaDeNaciminto": "16-06-1992",
+                "nacionalidad": "colombiano"
+            }
+        ]
+    }
+]
