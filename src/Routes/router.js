@@ -44,11 +44,9 @@ function VerifyInToken(req, res, next) {
 }
 
 router.get("/", (req, res) => {
-  res.json({ key: "et" });
-});
-
-router.post("/", GenerateToken, (req, res) => {
-  fetch(req.body.URL).then((res) => console.log(res));
+  fetch("https://epic.gsfc.nasa.gov/api/enhanced/date/2024-04-01")
+    .then((res) => res.json())
+    .then((data) => console.log(data));
   res.send("i");
 });
 

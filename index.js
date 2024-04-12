@@ -1,9 +1,13 @@
 const express = require("express");
 const cors_ = require("cors");
-const router = require("./src/router");
+const router = require("./src/Routes/router");
+const routerARControllerApp = require("./src/Routes/routerARControllerWeb/App");
 const App = express();
 
-App.use(router);
+//access point for arcontroller web
+App.use(`arcontroller/web/${router}`);
+App.use(`arcontroller/web/${routerARControllerApp}`);
+
 App.set("port", process.env.PORT || 2024);
 
 // middlewares
