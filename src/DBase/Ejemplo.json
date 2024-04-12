@@ -1,0 +1,151 @@
+{
+    "users": [
+        {
+            "email": "qwerty@qwerty.com",
+            "psw": "123456789",
+            "area": "Principal"
+        },
+        {
+            "email": "qwdsserty@qwerty.com",
+            "psw": "123456789",
+            "area": "Cali"
+        },
+        {
+            "email": "mechupaunhv@qwerty.com",
+            "psw": "123456789",
+            "area": "Bogotá"
+        },
+        {
+            "email": "qasqqwwerty@qwerty.com",
+            "psw": "123456789",
+            "area": "Bogotá"
+        },
+        {
+            "email": "qrefwwerty@qwerty.com",
+            "psw": "123456789",
+            "area": "123456789"
+        },
+        {
+            "email": "eric@qwerty.com",
+            "psw": "123456789",
+            "area": "123456789"
+        }
+    ],
+    "sedes": [
+        {
+            "id": "",
+            "nombre": "",
+            "pais": "",
+            "Dpto": "",
+            "Ciudad": ".",
+            "dir": "",
+            "gps": "",
+            "encargado": {
+                "nombre": "",
+                "email": "",
+                "tel": ""
+            },
+            "fechaInicio": "",
+            "estado": true,
+            "localidades": [
+                {
+                    "id": "",
+                    "nombre": "",
+                    "pseudo": "",
+                    "pais": "",
+                    "Dpto": "",
+                    "Ciudad": "",
+                    "dir": "",
+                    "gps": "",
+                    "tipoIdent": "",
+                    "noIdent": "",
+                    "fechaInicio": "",
+                    "zona": [
+                        {
+                            "id": "",
+                            "nombre": "",
+                            "pseudo": "",
+                            "pais": "",
+                            "Dpto": "",
+                            "Ciudad": "",
+                            "dir": "",
+                            "gps": "",
+                            "fechaInicio": "",
+                            "rrff": [
+                                {
+                                    "_id": "",
+                                    "tipo": "",
+                                    "naturaleza": "",
+                                    "descripcion": "",
+                                    "datosTecnicos": {},
+                                    "componentes": [
+                                        {
+                                            "maquinas": [
+                                                {}
+                                            ],
+                                            "sensores": [
+                                                {}
+                                            ],
+                                            "otros": [
+                                                {
+                                                    "nombre": "tuberias",
+                                                    "sensores": [
+                                                        {}
+                                                    ]
+                                                },
+                                                {
+                                                    "nombre": "control central",
+                                                    "sensores": [
+                                                        {}
+                                                    ],
+                                                    "plc": [
+                                                        {}
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "ot": [
+                                        {
+                                            "id": "",
+                                            "tipo": "",
+                                            "descripcion": "",
+                                            "fechaInicio": "",
+                                            "fechaEntregaPlanteada": "",
+                                            "fechaFin": "",
+                                            "costeHerramientas": "",
+                                            "costeRRHH": "",
+                                            "costeLogistica": "",
+                                            "ingEncargado": "",
+                                            "ejecutores": [
+                                                {
+                                                    "id": ""
+                                                }
+                                            ],
+                                            "criticidad": "",
+                                            "reporteTecnico": [],
+                                            "camposFinales": [
+                                                {
+                                                    "observTecnicas": "",
+                                                    "observs": ""
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "rrhh": [
+                        {}
+                    ]
+                }
+            ],
+            "contabilidad": {
+                "baseInicial": {
+                    "$numberDouble": "12.343"
+                }
+            }
+        }
+    ]
+}
