@@ -3,17 +3,18 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
-const Conexiondb = require("../DBase/Mongoose/ConexionMongo");
-const CreateConection = require("../DBase/Mongoose/CreateConection");
-const users_schema = require("../DBase/Mongoose/Models/users_schema");
+const Conexiondb = require("../../DBase/Mongoose/ConexionMongo");
+const CreateConection = require("../../DBase/Mongoose/CreateConection");
+const users_schema = require("../../DBase/Mongoose/Models/users_schema");
 const {
   FindUserByIdOnProduct,
   FindDataByIdUser,
-} = require("../DBase/Mongoose/Queries/ConsumeAPI");
+} = require("../../DBase/Mongoose/Queries/ConsumeAPI");
+const VerifyInToken = require("./Middlewares/VerifyInToken");
 
 //RUTAS
 //-- enrutamiento seguro a dashboard
-router.get("/app/dashboard", VerifyInToken(req, res, next), (req, res) => {
+router.get("/app/dashboard", VerifyInToken, (req, res) => {
   jwt.verify(req.token, "Rouse17*", (error, data) => {
     if (error) {
       console.error(error);

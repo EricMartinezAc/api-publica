@@ -3,13 +3,13 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 //modulos bd
-const Conexiondb = require("../DBase/Mongoose/ConexionMongo");
-const users_schema = require("../DBase/Mongoose/Models/users_schema");
+const Conexiondb = require("../../DBase/Mongoose/ConexionMongo");
+const users_schema = require("../../DBase/Mongoose/Models/users_schema");
 const {
   FindByUSUandPsw,
   RegtrByUSUandPsw,
   FindAndUpdateToken,
-} = require("../DBase/Mongoose/Queries/CRUD_users");
+} = require("../../DBase/Mongoose/Queries/CRUD_users");
 const ValideAuth = require("./Middlewares/ValideAuth");
 
 //ENDPOINTS
