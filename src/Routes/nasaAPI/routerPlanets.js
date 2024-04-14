@@ -42,8 +42,10 @@ function VerifyInToken(req, res, next) {
     res.sendStatus(403);
   }
 }
-
 router.get("/", (req, res) => {
+  res.json({ route: "planets" });
+});
+router.get("/nasa-api", (req, res) => {
   fetch("https://epic.gsfc.nasa.gov/api/enhanced/date/2024-04-01")
     .then((res) => res.json())
     .then((data) => console.log(data));

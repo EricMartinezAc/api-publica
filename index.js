@@ -1,8 +1,9 @@
 const express = require("express");
 const cors_ = require("cors");
 const routerCpannel = require("./src/Routes/Cpannel/routerCpannel");
-const router = require("./src/Routes/router");
+const routerARControllerAuthRegtr = require("./src/Routes/routerARControllerWeb/AuthReg");
 const routerARControllerApp = require("./src/Routes/routerARControllerWeb/App");
+const routerPlanets = require("./src/Routes/nasaAPI/routerPlanets");
 const App = express();
 
 // middlewares
@@ -18,9 +19,11 @@ App.use(
 );
 //access point for Cpannel
 App.use("/", routerCpannel);
+//access point for NASA API
+App.use("/nasa/web/", routerPlanets);
 //access point for arcontroller web
-App.use("arcontroller/web/", router);
-App.use("arcontroller/web/", routerARControllerApp);
+App.use("/arcontroller/web/", routerARControllerAuthRegtr);
+App.use("/arcontroller/web/", routerARControllerApp);
 
 //Route 404
 App.use("*", (req, res) => {

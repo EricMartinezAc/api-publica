@@ -4,78 +4,73 @@ const jwt = require("jsonwebtoken");
 
 //modulos bd
 const Conexiondb = require("../../DBase/Mongoose/ConexionMongo");
-const users_schema = require("../../DBase/Mongoose/Models/users_schema");
-const {
-  FindByUSUandPsw,
-  RegtrByUSUandPsw,
-  FindAndUpdateToken,
-} = require("../../DBase/Mongoose/Queries/CRUD_users");
 const ValideAuth = require("./Middlewares/ValideAuth");
+const { crud_user, FindAndUpdateToken } = require("./Queries/crud_user");
 
 //ENDPOINTS
-
+// router.get(
+//   "/users/into",
+//   async (req, res, next) =>
+//     (await ValideAuth(req.body.datos_))
+//       ? next()
+//       : (req.statusCode = 403) & next(),
+//   async (req, res) => {
+//     console.log(
+//       `${req.baseUrl} ${req.hostname} ${req.ip} ${req.params} ${req.body} `
+//     );
+//     res.json({ statusCode: req.statusCode });
+//   }
+// );
 //RUTAS
 //### AUTENTICACIÓN
-router.post("/users/auth", ValideAuth(req), async (req, res) => {
-  if (
-    req.body.datos_.user !== "" &&
-    req.body.datos_.user !== undefined &&
-    req.body.datos_.pswLogin !== "" &&
-    req.body.datos_.pswLogin !== undefined &&
-    req.body.datos_.id_prod !== "" &&
-    req.body.datos_.id_prod !== undefined &&
-    typeof req.body.datos_.rol !== "undefined" &&
-    req.body.process_ === "auth"
-  ) {
-    //informe datos ingresan
+
+router.post(
+  "/users/auth",
+  (req, res, next) =>
+    ValideAuth(req.body.datos_, "auth")
+      ? next()
+      : (req.statusCode = 403 & res.json({ statusCode: 403 })),
+  async (req, res) => {
+    //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
     //modelar datos
-    const { user, pswLogin, id_prod, clav_prodct, rol } = req.body.datos_;
-
-    //proceso
+    const { clav_prodct, user, pswLogin } = req.body.datos_;
+    //proceso de login
     try {
-      await Conexiondb(id_prod);
+      await Conexiondb(clav_prodct);
       //consultar si existe
-      let respFindByUSUandPsw = await FindByUSUandPsw(
-        user,
-        pswLogin,
-        clav_prodct,
-        rol
-      );
+      const respFindUser = await crud_user("auth", clav_prodct, user, pswLogin);
       //informe de busqueda
-      console.log(respFindByUSUandPsw);
-
-      if (respFindByUSUandPsw === "bad") {
-        //informe respuesta de búsqueda
-        console.log("E-405");
+      console.log(user, respFindUser);
+      //sin coincidencias, reject
+      if (respFindUser === null) {
         res.json({
-          valor: 405,
-          msj: `${user} E-305: Su producto no está registrado. Pongase en contacto con soporte técnico`,
+          statusCode: 405,
+          msj: `${user} E-001: Error de autenticación.`,
         });
       }
+      //coincidencias encontradas, genere y reemplace si existe token
       if (respFindByUSUandPsw !== null) {
-        console.log("existente");
+        //gerenerar token
         jwt.sign(
-          respFindByUSUandPsw.user +
-            ";" +
-            String(new Date(Date.now()).getDate()),
+          respFindUser.user + ";" + String(new Date(Date.now()).getDate()),
           "Rouse17*",
           async (err, token) => {
             if (err === null) {
               const resptFindAndUpdateToken = await FindAndUpdateToken(
-                respFindByUSUandPsw._id.toString(),
+                respFindUser._id.toString(),
                 token
               );
               //informe de respuesta
-              console.log(resptFindAndUpdateToken);
+              console.log(user, resptFindAndUpdateToken);
               await res.json({
-                valor: 400,
+                statusCode: 200,
                 msj: `Bienvenido ${user}, ahora tienes el control`,
-                respt: token,
+                token: token,
               });
             } else {
               console.log(
-                `No se pudo generar token para ${user}. Error E-404: ${err}`
+                `No se pudo generar token para ${user}. Error E-002: ${err}`
               );
               res.json({
                 valor: 404,
@@ -85,106 +80,87 @@ router.post("/users/auth", ValideAuth(req), async (req, res) => {
             }
           }
         );
-      } else {
-        console.log("No encontrado");
-        res.json({
-          valor: 403,
-          msj: `${user} E-403: No se encontraron coincidencias `,
-        });
       }
     } catch (error) {
       res.json({
-        valor: 402,
+        statusCode: 403,
         msj: `${user}: ${error}`,
       });
     }
-  } else {
-    res.json({
-      valor: 401,
-      msj: "Datos enviados son erroneos",
-    });
   }
-});
+);
 
 //### REGISTRO
-router.post("/users/regtr", ValideAuth(req), async (req, res) => {
-  if (
-    req.body.datos_.user !== "" &&
-    req.body.datos_.user !== undefined &&
-    req.body.datos_.pswLogin !== "" &&
-    req.body.datos_.pswLogin !== undefined &&
-    req.body.datos_.id_prod !== "" &&
-    req.body.datos_.id_prod !== undefined &&
-    typeof req.body.datos_.rol !== "undefined" &&
-    req.body.process_ === "regtr"
-  ) {
-    //informe datos ingresan
+router.post(
+  "/users/regtr",
+  (res, req, next) =>
+    ValideAuth(req.body.datos_, "regtr")
+      ? next()
+      : (req.statusCode = 403 & res.json({ statusCode: 403 })),
+  async (req, res) => {
+    //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
     //modelar datos
-    const { user, pswLogin, id_prod, clav_prodct, rol } = req.body.datos_;
+    const { clav_prodct, user, pswLogin, rol } = req.body.datos_;
 
-    //proceso
+    //proceso de regtr
     try {
-      await Conexiondb(id_prod);
+      await Conexiondb(clav_prodct);
       //consultar si existe
-      let respFindByUSUandPsw = await FindByUSUandPsw(
-        user,
-        pswLogin,
-        clav_prodct,
-        rol
-      );
-      if (respFindByUSUandPsw === "bad") {
-        //informe respuesta de búsqueda
-        console.log("E-305");
+      const respFindUser = await crud_user(clav_prodct, user, pswLogin);
+      //informe respuesta de búsqueda
+      console.log(user, respFindUser);
+      //encuentra coincidencias, reject
+      if (respFindUser !== null) {
         res.json({
-          valor: 305,
-          msj: `${user} E-305: Su producto no está registrado. Pongase en contacto con soporte técnico`,
+          statusCode: 401,
+          msj: `${user} E-003: Ya se encuentra registrado`,
         });
-      } else {
-        if (respFindByUSUandPsw === null) {
-          console.log(
-            `Búsqueda retorna: ${respFindByUSUandPsw}, Registrando..`
-          );
-          let respRegtrByUSUandPsw = await RegtrByUSUandPsw(
-            user,
-            pswLogin,
-            rol
-          );
-          console.log(`... Registrado: ${respRegtrByUSUandPsw}`);
-          res.json(
-            (await respRegtrByUSUandPsw.length) > 0 ||
-              (await respRegtrByUSUandPsw) !== null
-              ? {
-                  valor: 300,
-                  msj: `Usuario ${user} fue almacenado exitosamente`,
-                  id_: respRegtrByUSUandPsw._id,
-                }
-              : {
-                  valor: 304,
-                  msj: `Error en almacenamiento ${user}, compruebe su conexión`,
-                }
-          );
-        } else {
-          //informe respuesta de búsqueda
-          console.log("E-303");
-          res.json({
-            valor: 303,
-            msj: `${user} E-303: Ya se encuentra registrado `,
-          });
-        }
+      }
+      //coincidencias NO encontradas,genere token y Alamacene user
+      if (respFindUser === null) {
+        //gerenerar token
+        jwt.sign(
+          user + ";" + String(new Date(Date.now()).getDate()),
+          "Rouse17*",
+          async (err, token) => {
+            if (err === null) {
+              // almacene user con token
+              const respRegtr = await crud_user(
+                "regtr",
+                clav_prodct,
+                user,
+                pswLogin,
+                token,
+                rol
+              );
+              //informe de respuesta
+              console.log(user, respRegtr);
+              await res.json({
+                statusCode: 200,
+                msj: `Bienvenido ${user}, ahora tienes el control`,
+                token: token,
+              });
+            } else {
+              console.log(
+                `No se pudo generar token para ${user}. Error E-002: ${err}`
+              );
+              res.json({
+                valor: 404,
+                msj: `No se pudo generar token`,
+                respt: err,
+              });
+            }
+          }
+        );
       }
     } catch (error) {
       res.json({
-        valor: 302,
+        statusCode: 403,
         msj: `${user}: ${error}`,
       });
     }
-  } else {
-    res.json({
-      valor: 301,
-      msj: "Datos enviados son erroneos",
-    });
   }
-});
+);
 
 module.exports = router;

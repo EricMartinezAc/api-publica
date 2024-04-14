@@ -1,11 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
-
-const Conexiondb = require("../../DBase/Mongoose/ConexionMongo");
-const CreateConection = require("../../DBase/Mongoose/CreateConection");
-const users_schema = require("../../DBase/Mongoose/Models/users_schema");
 const {
   FindUserByIdOnProduct,
   FindDataByIdUser,

@@ -17,6 +17,10 @@ const users_schema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  id_clav_prodct: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "prodct",
+  },
 });
 
 module.exports = mongoose.model("user", users_schema);
