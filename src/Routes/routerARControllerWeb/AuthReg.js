@@ -34,10 +34,10 @@ router.post(
     //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
     //modelar datos
-    const { clav_prodct, user, pswLogin } = req.body.datos_;
+    const { owner, clav_prodct, user, pswLogin } = req.body.datos_;
     //proceso de login
     try {
-      await Conexiondb(clav_prodct);
+      await Conexiondb(owner);
       //consultar si existe
       const respFindUser = await crud_user("auth", clav_prodct, user, pswLogin);
       //informe de busqueda
@@ -101,11 +101,11 @@ router.post(
     //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
     //modelar datos
-    const { clav_prodct, user, pswLogin, rol } = req.body.datos_;
+    const { owner, clav_prodct, user, pswLogin, rol } = req.body.datos_;
 
     //proceso de regtr
     try {
-      await Conexiondb(clav_prodct);
+      await Conexiondb(owner);
       //consultar si existe
       const respFindUser = await crud_user(clav_prodct, user, pswLogin);
       //informe respuesta de búsqueda

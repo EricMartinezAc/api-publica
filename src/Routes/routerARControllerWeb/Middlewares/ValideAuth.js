@@ -1,6 +1,8 @@
 module.exports = async function ValideAuth(datos, proceso) {
   //nulidad de datos
   if (proceso === "auth") return;
+  datos.owner === "" ||
+  datos.owner === undefined ||
   datos.clav_prodct === "" ||
   datos.clav_prodct === undefined ||
   datos.user === "" ||
@@ -10,6 +12,8 @@ module.exports = async function ValideAuth(datos, proceso) {
     ? false
     : true;
   if (proceso === "regtr") return;
+  datos.owner === "" ||
+  datos.owner === undefined ||
   datos.clav_prodct === "" ||
   datos.clav_prodct === undefined ||
   datos.user === "" ||
