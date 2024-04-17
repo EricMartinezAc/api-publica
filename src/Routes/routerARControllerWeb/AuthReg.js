@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 //modulos bd
-const Conexiondb = require("../../DBase/Mongoose/ConexionMongo");
+const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongo");
 const ValideAuth = require("./Middlewares/ValideAuth");
 const { crud_user, FindAndUpdateToken } = require("./Queries/crud_user");
 

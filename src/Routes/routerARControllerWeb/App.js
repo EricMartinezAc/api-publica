@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const {
-  FindUserByIdOnProduct,
-  FindDataByIdUser,
-} = require("../../DBase/Mongoose/Queries/ConsumeAPI");
 const VerifyInToken = require("./Middlewares/VerifyInToken");
 
 //RUTAS
