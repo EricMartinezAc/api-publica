@@ -23,6 +23,7 @@ router.get(
         console.log("todo dashboard", data.split(";")[0]);
         res.json({
           statusCode: 200,
+          msj: 'redireccionando a dashboard',
           data: data.split(";")[0],
         });
       }
