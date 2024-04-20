@@ -101,7 +101,13 @@ router.post(
   (req, res, next) => {
     ValideAuth(req.body.datos_, "regtr")
       ? next()
-      : (req.statusCode = 403 & res.json({ statusCode: 403 }));
+      : (req.statusCode =
+          403 &
+          res.json({
+            statusCode: 403,
+            token: null,
+            msj: `no permitido ingreso de datos`,
+          }));
   },
   async (req, res) => {
     //informe datos ingresando
@@ -112,64 +118,22 @@ router.post(
     //proceso de regtr
     try {
       await Conexiondb(owner);
-      //consultar si existe
-      const timeNow = String(new Date(Date.now()).getDate());
-      const respFindUser = await crud_user(req.body.process_, {
-        owner,
-        clav_prodct,
-        user,
-        pswLogin,
-        rol,
-      });
-      //informe respuesta de búsqueda
-      console.log("responde " + user, respFindUser);
-      // encuentra coincidencias, reject
-      // if (respFindUser !== null) {
-      //   res.json({
-      //     statusCode: 401,
-      //     msj: `${user} E-003: Ya se encuentra registrado`,
-      //   });
-      // }
-      // coincidencias NO encontradas,genere token y Alamacene user
-      // if (respFindUser === null) {
-      //   gerenerar token
-      //   jwt.sign(
-      //     user + ";" + String(new Date(Date.now()).getDate()),
-      //     "Rouse17*",
-      //     async (err, token) => {
-      //       if (err === null) {
-      //         almacene user con token
-      //         const respRegtr = await crud_user(
-      //           "regtr",
-      //           clav_prodct,
-      //           user,
-      //           pswLogin,
-      //           token,
-      //           rol
-      //         );
-      //         informe de respuesta
-      //         console.log(user, respRegtr);
-      //         await res.json({
-      //           statusCode: 200,
-      //           msj: `Bienvenido ${user}, ahora tienes el control`,
-      //           token: token,
-      //         });
-      //       } else {
-      //         console.log(
-      //           `No se pudo generar token para ${user}. Error E-002: ${err}`
-      //         );
-      //         res.json({
-      //           valor: 404,
-      //           msj: `No se pudo generar token`,
-      //           respt: err,
-      //         });
-      //       }
-      //     }
-      //   );
-      // }
+      //registro de usuario
+      //response
+      await res.json(
+        await crud_user(req.body.process_, {
+          owner,
+          clav_prodct,
+          user,
+          pswLogin,
+          rol,
+        })
+      );
+      // almacenado con exito
     } catch (error) {
       res.json({
         statusCode: 403,
+        token: null,
         msj: `${user}: ${error}`,
       });
     }

@@ -26,18 +26,30 @@ const crud_user = async (proceso, datos) => {
         })
         .exec();
       if (findUSerIfExist === null) {
-        const resptoken = await genereToken(datos.user, "Rouse17*");
-        const newUser = await new users_schema({
-          user: datos.user,
-          pswLogin: datos.pswLogin,
-          token: resptoken,
-          rol: datos.rol,
-          id_clav_prodct: findProdct._id,
-        });
-        console.log((await "nuevo") + newUser);
-        return await newUser.save();
+        try {
+          const resptoken = await genereToken(datos.user, "Rouse17*");
+          const newUser = await new users_schema({
+            user: datos.user,
+            pswLogin: datos.pswLogin,
+            token: resptoken,
+            rol: datos.rol,
+            id_clav_prodct: findProdct._id,
+          });
+          await newUser.save();
+          return await {
+            statusCode: 200,
+            token: resptoken,
+            msj: `Bienvenido ${datos.user}, ahora tienes el control`,
+          };
+        } catch (error) {
+          return { statusCode: 500, token: null, msj: error };
+        }
       } else {
-        return await findUSerIfExist;
+        return await {
+          statusCode: 204,
+          token: null,
+          msj: `${datos.user} ya se encuentra registrado`,
+        };
       }
     }
   } else {
