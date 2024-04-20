@@ -6,6 +6,8 @@ const routerARControllerApp = require("./src/Routes/routerARControllerWeb/App");
 const routerPlanets = require("./src/Routes/nasaAPI/routerPlanets");
 const App = express();
 
+require("dotenv").config();
+
 // middlewares
 App.use(
   express.json({
@@ -30,7 +32,7 @@ App.use("*", (req, res) => {
   console.error(`${res.statusCode} from ${req.url} by ${req.ip}`);
 });
 
-App.set("port", process.env.PORT || 2024);
+App.set("port", process.env.PORT || 2025);
 
 App.listen(App.get("port"), () => {
   console.log(`${App.get("port")} is run`);

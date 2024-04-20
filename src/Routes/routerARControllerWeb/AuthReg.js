@@ -39,7 +39,12 @@ router.post(
     try {
       await Conexiondb(owner);
       //consultar si existe
-      const respFindUser = await crud_user("auth", clav_prodct, user, pswLogin);
+      const respFindUser = await crud_user("auth", {
+        owner,
+        clav_prodct,
+        user,
+        pswLogin,
+      });
       //informe de busqueda
       console.log(user, respFindUser);
       //sin coincidencias, reject
@@ -93,10 +98,11 @@ router.post(
 //### REGISTRO
 router.post(
   "/users/regtr",
-  (res, req, next) =>
+  (req, res, next) => {
     ValideAuth(req.body.datos_, "regtr")
       ? next()
-      : (req.statusCode = 403 & res.json({ statusCode: 403 })),
+      : (req.statusCode = 403 & res.json({ statusCode: 403 }));
+  },
   async (req, res) => {
     //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
@@ -107,53 +113,60 @@ router.post(
     try {
       await Conexiondb(owner);
       //consultar si existe
-      const respFindUser = await crud_user(clav_prodct, user, pswLogin);
+      const timeNow = String(new Date(Date.now()).getDate());
+      const respFindUser = await crud_user(req.body.process_, {
+        owner,
+        clav_prodct,
+        user,
+        pswLogin,
+        rol,
+      });
       //informe respuesta de búsqueda
-      console.log(user, respFindUser);
-      //encuentra coincidencias, reject
-      if (respFindUser !== null) {
-        res.json({
-          statusCode: 401,
-          msj: `${user} E-003: Ya se encuentra registrado`,
-        });
-      }
-      //coincidencias NO encontradas,genere token y Alamacene user
-      if (respFindUser === null) {
-        //gerenerar token
-        jwt.sign(
-          user + ";" + String(new Date(Date.now()).getDate()),
-          "Rouse17*",
-          async (err, token) => {
-            if (err === null) {
-              // almacene user con token
-              const respRegtr = await crud_user(
-                "regtr",
-                clav_prodct,
-                user,
-                pswLogin,
-                token,
-                rol
-              );
-              //informe de respuesta
-              console.log(user, respRegtr);
-              await res.json({
-                statusCode: 200,
-                msj: `Bienvenido ${user}, ahora tienes el control`,
-                token: token,
-              });
-            } else {
-              console.log(
-                `No se pudo generar token para ${user}. Error E-002: ${err}`
-              );
-              res.json({
-                valor: 404,
-                msj: `No se pudo generar token`,
-                respt: err,
-              });
-            }
-          }
-        );
-      }
+      console.log("responde " + user, respFindUser);
+      // encuentra coincidencias, reject
+      // if (respFindUser !== null) {
+      //   res.json({
+      //     statusCode: 401,
+      //     msj: `${user} E-003: Ya se encuentra registrado`,
+      //   });
+      // }
+      // coincidencias NO encontradas,genere token y Alamacene user
+      // if (respFindUser === null) {
+      //   gerenerar token
+      //   jwt.sign(
+      //     user + ";" + String(new Date(Date.now()).getDate()),
+      //     "Rouse17*",
+      //     async (err, token) => {
+      //       if (err === null) {
+      //         almacene user con token
+      //         const respRegtr = await crud_user(
+      //           "regtr",
+      //           clav_prodct,
+      //           user,
+      //           pswLogin,
+      //           token,
+      //           rol
+      //         );
+      //         informe de respuesta
+      //         console.log(user, respRegtr);
+      //         await res.json({
+      //           statusCode: 200,
+      //           msj: `Bienvenido ${user}, ahora tienes el control`,
+      //           token: token,
+      //         });
+      //       } else {
+      //         console.log(
+      //           `No se pudo generar token para ${user}. Error E-002: ${err}`
+      //         );
+      //         res.json({
+      //           valor: 404,
+      //           msj: `No se pudo generar token`,
+      //           respt: err,
+      //         });
+      //       }
+      //     }
+      //   );
+      // }
     } catch (error) {
       res.json({
         statusCode: 403,
