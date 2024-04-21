@@ -5,7 +5,7 @@ require("dotenv").config();
 const Conexiondb = (owner) => {
   mongoose
     .connect(
-      `${process.env.MONGODB_URI}${owner}${process.env.MONGODB_URI_config}`
+      `mongodb+srv://proyectossieng:Rouse17*@cluster0.rz5i0hc.mongodb.net/${owner}?retryWrites=true&w=majority`
     )
     .then(() => console.log(owner, ": is conected"))
     .catch((error) => console.error(error));
