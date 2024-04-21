@@ -6,12 +6,28 @@ const crud_user = async (proceso, datos) => {
   //if(ValideDatosCRUDUSER(proceso, datos)){
   console.log("realizando CRUD");
   if (proceso === "auth") {
-    const find = await users_schema
+    //useDB:
+    const DB = await prodct_schema
       .findOne({
-        user: datos.user,
-        pswLogin: datos.pswLogin,
+        owner: datos.owner,
       })
       .exec();
+    //findUSer:
+    if (DB !== null) {
+      const find = await users_schema
+        .findOne({
+          user: datos.user,
+          pswLogin: datos.pswLogin,
+          id_clav_prodct: DB._id,
+        })
+        .exec();
+    } else {
+      return await {
+        statusCode: 403,
+        datos: null,
+        msj: `${datos.owner} no fue encontrado`,
+      };
+    }
     return await {
       statusCode: 200,
       datos: find,
@@ -19,19 +35,18 @@ const crud_user = async (proceso, datos) => {
     };
   }
   if (proceso === "regtr") {
-    let findProdct = await prodct_schema
-      .findOne({ clav_prodct: datos.clav_prodct })
+    //useDB
+    let DB = await prodct_schema
+      .findOne({ owner: datos.owner, clav_prodct: datos.clav_prodct })
       .exec();
-    if (findProdct !== null) {
-      console.log(3, findProdct);
+    if (DB !== null) {
       const findUSerIfExist = await users_schema
         .findOne({
           user: datos.user,
           pswLogin: datos.pswLogin,
-          id_clav_prodct: findProdct._id,
+          id_clav_prodct: DB._id,
         })
         .exec();
-      console.log(4, findUSerIfExist);
       if (findUSerIfExist === null) {
         try {
           const resptoken = await genereToken(datos.user, "Rouse17*");
@@ -41,7 +56,7 @@ const crud_user = async (proceso, datos) => {
             pswLogin: datos.pswLogin,
             token: resptoken,
             rol: datos.rol,
-            id_clav_prodct: findProdct._id,
+            id_clav_prodct: DB._id,
           });
           const saved = await newUser.save();
           console.log("fin", saved);

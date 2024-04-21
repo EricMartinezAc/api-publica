@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
 const prodct_schema = new mongoose.Schema({
+  owner: {
+    type: String,
+    required: true,
+  },
   clav_prodct: {
     type: String,
-    required: false,
+    required: true,
   },
 });
 

@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 //process.env.mongodb_UR
-const Conexiondb = (owner) => {
+const Conexiondb = () => {
   mongoose
     .connect(
-      `mongodb+srv://proyectossieng:Rouse17*@cluster0.rz5i0hc.mongodb.net/${owner}?retryWrites=true&w=majority`
+      `${process.env.MONGODB_URI}arcweb${process.env.MONGODB_URI_config}`
     )
-    .then(() => console.log(owner, ": is conected"))
+    .then(() => console.log("arcweb: is conected"))
     .catch((error) => console.error(error));
   mongoose.set("strictQuery", true);
 };

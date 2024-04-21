@@ -20,13 +20,6 @@ App.use(
   })
 );
 
-//database default initial
-mongoose
-  .connect(`${process.env.MONGODB_URI_defaul}`)
-  .then(() => console.log("mongodb: is conected"))
-  .catch((error) => console.error(error));
-// mongoose.set("strictQuery", true);
-
 //access point for Cpannel
 App.use("/", routerCpannel);
 //access point for NASA API
