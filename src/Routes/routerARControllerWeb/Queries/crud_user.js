@@ -4,20 +4,26 @@ const genereToken = require("../Middlewares/genereToken");
 
 const crud_user = async (proceso, datos) => {
   //if(ValideDatosCRUDUSER(proceso, datos)){
-  let findProdct = await prodct_schema
-    .findOne({ clav_prodct: datos.clav_prodct })
-    .exec();
-  if (findProdct !== null) {
-    if (proceso === "auth")
-      return await users_schema
-        .findOne({
-          user: datos.user,
-          pswLogin: datos.pswLogin,
-          rol: datos.rol,
-          id_clav_prodct: findProdct._id,
-        })
-        .exec();
-    if (proceso === "regtr") {
+  console.log("realizando CRUD");
+  if (proceso === "auth") {
+    const find = await users_schema
+      .findOne({
+        user: datos.user,
+        pswLogin: datos.pswLogin,
+      })
+      .exec();
+    return await {
+      statusCode: 200,
+      datos: find,
+      msj: `${datos.user} Bienvenido de vuelta`,
+    };
+  }
+  if (proceso === "regtr") {
+    let findProdct = await prodct_schema
+      .findOne({ clav_prodct: datos.clav_prodct })
+      .exec();
+    if (findProdct !== null) {
+      console.log(3, findProdct);
       const findUSerIfExist = await users_schema
         .findOne({
           user: datos.user,
@@ -25,9 +31,11 @@ const crud_user = async (proceso, datos) => {
           id_clav_prodct: findProdct._id,
         })
         .exec();
+      console.log(4, findUSerIfExist);
       if (findUSerIfExist === null) {
         try {
           const resptoken = await genereToken(datos.user, "Rouse17*");
+          console.log(5, resptoken);
           const newUser = await new users_schema({
             user: datos.user,
             pswLogin: datos.pswLogin,
@@ -35,27 +43,33 @@ const crud_user = async (proceso, datos) => {
             rol: datos.rol,
             id_clav_prodct: findProdct._id,
           });
-          await newUser.save();
+          const saved = await newUser.save();
+          console.log("fin", saved);
           return await {
             statusCode: 200,
-            token: resptoken,
+            datos: saved,
             msj: `Bienvenido ${datos.user}, ahora tienes el control`,
           };
         } catch (error) {
-          return { statusCode: 500, token: null, msj: error };
+          return { statusCode: 500, datos: null, msj: error };
         }
       } else {
         return await {
           statusCode: 204,
-          token: null,
+          datos: null,
           msj: `${datos.user} ya se encuentra registrado`,
         };
       }
+    } else {
+      console.log("product not found");
+      return await {
+        statusCode: 403,
+        datos: null,
+        msj: "no se encontró producto",
+      };
     }
-  } else {
-    console.log("product not found");
-    return await { statusCode: 403 };
   }
+
   //} else{ ..}
 };
 const FindAndUpdateToken = async (id, _token) => {

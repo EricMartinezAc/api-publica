@@ -8,23 +8,25 @@ const VerifyInToken = require("./Middlewares/VerifyInToken");
 router.get(
   "/app/dashboard",
   (req, res, next) =>
-    VerifyInToken(req.headers["autorization"])
+    VerifyInToken(req.headers["autorization"], req)
       ? next()
-      : res.json({ statusCode: 403, msj: "verify token failure" }),
-  (req, res) => {
-    jwt.verify(req.token, "Rouse17*", (error, data) => {
+      : res.json({ statusCode: 403, msj: "verify token failure", data: null }),
+  async (req, res) => {
+    console.log("entrado a get app: ", req.token);
+    await jwt.verify(req.token, "Rouse17*", (error, data) => {
       if (error) {
         console.error(403, error);
         res.json({
           statusCode: 403,
           msj: "Error en generación de token: " + error,
+          data: null,
         });
       } else {
         console.log("todo dashboard", data.split(";")[0]);
         res.json({
           statusCode: 200,
-          msj: 'redireccionando a dashboard',
-          data: data.split(";")[0],
+          msj: "redireccionando a dashboard",
+          data: data.split(";"),
         });
       }
     });
