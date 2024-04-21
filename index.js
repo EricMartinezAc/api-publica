@@ -5,7 +5,7 @@ const routerARControllerAuthRegtr = require("./src/Routes/routerARControllerWeb/
 const routerARControllerApp = require("./src/Routes/routerARControllerWeb/App");
 const routerPlanets = require("./src/Routes/nasaAPI/routerPlanets");
 const App = express();
-
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 // middlewares
@@ -19,6 +19,14 @@ App.use(
     origin: "*",
   })
 );
+
+//database default initial
+mongoose
+  .connect(`${process.env.MONGODB_URI_defaul}`)
+  .then(() => console.log("mongodb: is conected"))
+  .catch((error) => console.error(error));
+// mongoose.set("strictQuery", true);
+
 //access point for Cpannel
 App.use("/", routerCpannel);
 //access point for NASA API
