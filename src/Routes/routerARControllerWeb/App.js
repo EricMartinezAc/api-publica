@@ -12,6 +12,18 @@ router.get(
       ? next()
       : res.json({ statusCode: 403, msj: "verify token failure", data: null }),
   async (req, res) => {
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    // another common pattern
+    // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
     console.log("entrado a get app: ", req.token);
     await jwt.verify(req.token, "Rouse17*", (error, data) => {
       if (error) {
