@@ -4,7 +4,7 @@ const genereToken = require("../Middlewares/genereToken");
 
 const crud_user = async (proceso, datos) => {
   //if(ValideDatosCRUDUSER(proceso, datos)){
-  console.log("realizando CRUD");
+  console.log("realizando CRUD: ", datos);
   if (proceso === "auth") {
     //useDB:
     const DB = await prodct_schema
@@ -21,6 +21,11 @@ const crud_user = async (proceso, datos) => {
           id_clav_prodct: DB._id,
         })
         .exec();
+      return await {
+        statusCode: 200,
+        datos: find,
+        msj: `${datos.user} Bienvenido de vuelta`,
+      };
     } else {
       return await {
         statusCode: 403,
@@ -28,11 +33,6 @@ const crud_user = async (proceso, datos) => {
         msj: `${datos.owner} no fue encontrado`,
       };
     }
-    return await {
-      statusCode: 200,
-      datos: find,
-      msj: `${datos.user} Bienvenido de vuelta`,
-    };
   }
   if (proceso === "regtr") {
     //useDB
