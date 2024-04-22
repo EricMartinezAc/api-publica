@@ -3,9 +3,9 @@ const cors_ = require("cors");
 const routerCpannel = require("./src/Routes/Cpannel/routerCpannel");
 const routerARControllerAuthRegtr = require("./src/Routes/routerARControllerWeb/AuthReg");
 const routerARControllerApp = require("./src/Routes/routerARControllerWeb/App");
+const queriesARControllerAuthRegtr = require("./src/Routes/routerARControllerWeb/Queries");
 const routerPlanets = require("./src/Routes/nasaAPI/routerPlanets");
 const App = express();
-const mongoose = require("mongoose");
 require("dotenv").config();
 
 // middlewares
@@ -19,7 +19,6 @@ App.use(
     origin: "*",
   })
 );
-
 //access point for Cpannel
 App.use("/", routerCpannel);
 //access point for NASA API
@@ -27,6 +26,7 @@ App.use("/nasa/web/", routerPlanets);
 //access point for arcontroller web
 App.use("/arcontroller/web/", routerARControllerAuthRegtr);
 App.use("/arcontroller/web/", routerARControllerApp);
+App.use("/arcontroller/web/", queriesARControllerAuthRegtr);
 
 //Route 404
 App.use("*", (req, res) => {

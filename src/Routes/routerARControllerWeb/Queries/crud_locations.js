@@ -2,7 +2,7 @@ const users_schema = require("../Models/users_schema");
 const prodct_schema = require("../Models/products_schema");
 const genereToken = require("../Middlewares/genereToken");
 
-const crud_user = async (proceso, datos) => {
+const crud_locations = async (proceso, datos) => {
   //if(ValideDatosCRUDUSER(proceso, datos)){
   console.log("realizando CRUD: ", datos);
   if (proceso === "auth") {
@@ -49,7 +49,7 @@ const crud_user = async (proceso, datos) => {
         .exec();
       if (findUSerIfExist === null) {
         try {
-          const resptoken = await genereToken(datos.user, process.env.PWS_JWT);
+          const resptoken = await genereToken(datos.user, "Rouse17*");
           console.log(5, resptoken);
           const newUser = await new users_schema({
             user: datos.user,
@@ -87,8 +87,5 @@ const crud_user = async (proceso, datos) => {
 
   //} else{ ..}
 };
-const FindAndUpdateToken = async (id, _token) => {
-  return users_schema.findByIdAndUpdate({ _id: id }, { token: _token });
-};
 
-module.exports = { crud_user, FindAndUpdateToken };
+module.exports = { crud_locations };
