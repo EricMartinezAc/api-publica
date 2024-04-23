@@ -8,9 +8,12 @@ const Headers = require("./Middlewares/Headers");
 router.get(
   "/app/dashboard",
   (req, res, next) => {
-    next();
+    VerifyInToken(req.headers["autorization"], req)
+      ? next()
+      : res.json({ statusCode: 403, msj: "verify token failure", data: null });
   },
   async (req, res) => {
+    Headers(res);
     console.log("entrado a get app: ", req.token);
     res.json({
       statusCode: 200,

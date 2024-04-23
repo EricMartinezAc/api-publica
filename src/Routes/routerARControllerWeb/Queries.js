@@ -11,12 +11,12 @@ const verifyInToken = require("./Middlewares/verifyInToken");
 router.get(
   "/locations/queries/find",
   (req, res, next) => {
-    Headers(res);
     verifyInToken(req.headers["autorization"], req)
       ? next()
       : res.json({ statusCode: 403, msj: "verify token failure", data: null });
   },
   async () => {
+    Headers(res);
     //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
     //modelar datos
