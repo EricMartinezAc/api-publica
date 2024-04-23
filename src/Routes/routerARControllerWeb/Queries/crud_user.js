@@ -42,10 +42,12 @@ const crud_user = async (proceso, datos) => {
   }
   if (proceso === "regtr") {
     //useDB
+    console.log("register user...");
     let DB = await prodct_schema
       .findOne({ owner: datos.owner, clav_prodct: datos.clav_prodct })
       .exec();
-    if (DB !== null) {
+    if (DB === null) {
+      console.log("bd selected... find user if exist");
       const findUSerIfExist = await users_schema
         .findOne({
           user: datos.user,
@@ -55,6 +57,7 @@ const crud_user = async (proceso, datos) => {
         .exec();
       if (findUSerIfExist === null) {
         try {
+          console.log("user dont exist. it going to be regist");
           const resptoken = await genereToken(datos.user, process.env.PWS_JWT);
           console.log(5, resptoken);
           const newUser = await new users_schema({
@@ -84,6 +87,7 @@ const crud_user = async (proceso, datos) => {
           return { statusCode: 500, datos: null, msj: error };
         }
       } else {
+        console.log(findUSerIfExist, "user existing");
         return await {
           statusCode: 204,
           datos: null,

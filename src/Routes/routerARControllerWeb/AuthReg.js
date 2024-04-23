@@ -33,7 +33,6 @@ router.post(
       await Conexiondb();
       //registro de usuario
       //response
-
       const respon = await crud_user(req.body.process_, {
         owner,
         clav_prodct,
