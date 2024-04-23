@@ -5,7 +5,7 @@ const router = express.Router();
 const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongoARCweb");
 const Headers = require("./Middlewares/Headers");
 const { crud_locations } = require("./Queries/crud_locations");
-const verifyInToken = require("./Middlewares/verifyInToken");
+const verifyInToken = require("./Middlewares/verifyIntoAndToken");
 
 //### para get, solo buscar algo
 router.get(

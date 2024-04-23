@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const VerifyInToken = require("./Middlewares/verifyInToken");
+const VerifyInToken = require("./Middlewares/verifyIntoAndToken");
 const Headers = require("./Middlewares/Headers");
 
 //RUTAS
