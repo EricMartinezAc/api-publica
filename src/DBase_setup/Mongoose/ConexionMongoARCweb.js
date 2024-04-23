@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 //process.env.mongodb_UR
-const Conexiondb = (owner) => {
+const Conexiondb = () => {
   mongoose
     .connect(
-      `${process.env.MONGODB_URI}${owner}${process.env.MONGODB_URI_config}`
+      `${process.env.MONGODB_URI}arcweb${process.env.MONGODB_URI_config}`
     )
     .then(() => console.log(owner, ": is conected"))
     .catch((error) => console.error(error));

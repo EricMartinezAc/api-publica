@@ -45,4 +45,13 @@ const Localidades_schema = mongoose.Schema({
     type: String,
     required: false,
   },
+  id_clav_user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
 });
+
+module.exports.Localidades_schema = mongoose.model(
+  "locations",
+  Localidades_schema
+);

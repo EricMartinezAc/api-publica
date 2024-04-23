@@ -16,22 +16,8 @@ router.get(
   },
   async (req, res) => {
     console.log("entrado a get app: ", req.token);
-    await jwt.verify(req.token, process.env.PWS_JWT, (error, data) => {
-      if (error) {
-        console.error(403, error);
-        res.json({
-          statusCode: 403,
-          msj: "Error en generación de token: " + error,
-          data: null,
-        });
-      } else {
-        console.log("todo dashboard", data.split(";")[0]);
-        res.json({
-          statusCode: 200,
-          msj: "redireccionando a dashboard",
-          data: data.split(";"),
-        });
-      }
+    res.json({
+      statusCode: 200,
     });
   }
 );

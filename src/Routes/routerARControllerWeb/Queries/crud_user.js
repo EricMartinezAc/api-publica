@@ -21,11 +21,17 @@ const crud_user = async (proceso, datos) => {
           id_clav_prodct: DB._id,
         })
         .exec();
-      return await {
-        statusCode: 200,
-        datos: find,
-        msj: `${datos.user} Bienvenido de vuelta`,
-      };
+      return (await find) !== null
+        ? {
+            statusCode: 200,
+            datos: find,
+            msj: `${datos.user} Bienvenido de vuelta`,
+          }
+        : {
+            statusCode: 403,
+            datos: null,
+            msj: `${datos.user} no está registrado`,
+          };
     } else {
       return await {
         statusCode: 403,
@@ -59,12 +65,21 @@ const crud_user = async (proceso, datos) => {
             id_clav_prodct: DB._id,
           });
           const saved = await newUser.save();
-          console.log("fin", saved);
-          return await {
-            statusCode: 200,
-            datos: saved,
-            msj: `Bienvenido ${datos.user}, ahora tienes el control`,
-          };
+          if (saved !== null) {
+            console.log("fin", saved);
+            return await {
+              statusCode: 200,
+              datos: saved,
+              msj: `Bienvenido ${datos.user}, ahora tienes el control`,
+            };
+          } else {
+            console.log("fin", saved);
+            return await {
+              statusCode: 204,
+              datos: saved,
+              msj: `no fue posible amacenar ${datos.user}`,
+            };
+          }
         } catch (error) {
           return { statusCode: 500, datos: null, msj: error };
         }

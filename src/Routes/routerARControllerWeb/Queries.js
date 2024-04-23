@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 //modulos bd
-const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongo");
+const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongoARCweb");
 const Headers = require("./Middlewares/Headers");
 const { crud_locations } = require("./Queries/crud_locations");
 const verifyInToken = require("./Middlewares/verifyInToken");
@@ -22,9 +22,10 @@ router.get(
     //modelar datos
     const proceso = req.body.process_;
     const token = req.body.token;
+    const owner = req.body.owner;
     try {
       await Conexiondb(owner);
-      const respon = await crud_locations(proceso, token);
+      const respon = await crud_locations(owner, proceso, token);
       console.log("response: ", respon);
       await res.json(respon);
     } catch (error) {
