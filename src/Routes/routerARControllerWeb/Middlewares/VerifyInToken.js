@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = async function verifyInToken(Bearer, req) {
+async function verifyInToken(Bearer, req) {
   try {
     if (typeof Bearer !== "undefined") {
       req.token = await Bearer.split(" ")[1];
@@ -22,4 +22,6 @@ module.exports = async function verifyInToken(Bearer, req) {
   } catch (error) {
     return false;
   }
-};
+}
+
+module.exports = verifyInToken;
