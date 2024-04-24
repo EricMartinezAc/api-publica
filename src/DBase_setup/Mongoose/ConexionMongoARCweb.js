@@ -7,7 +7,7 @@ const Conexiondb = () => {
     .connect(
       `${process.env.MONGODB_URI}arcweb${process.env.MONGODB_URI_config}`
     )
-    .then(() => console.log(owner, ": is conected"))
+    .then(() => console.log("arcweb: is conected"))
     .catch((error) => console.error(error));
   mongoose.set("strictQuery", true);
 };

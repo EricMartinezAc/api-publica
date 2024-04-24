@@ -13,7 +13,7 @@ router.get(
       : res.json({ statusCode: 403, msj: "verify token failure", data: null });
   },
   async (req, res) => {
-    Headers(res);
+    await Headers(res);
     console.log("entrado a get app: ", req.token);
     res.json({
       statusCode: 200,

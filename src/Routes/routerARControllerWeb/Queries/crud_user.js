@@ -1,6 +1,7 @@
 const users_schema = require("../Models/users_schema");
 const prodct_schema = require("../Models/products_schema");
 const genereToken = require("../Middlewares/genereToken");
+const { env_ } = require("../Middlewares/comunResources");
 
 const crud_user = async (proceso, datos) => {
   //if(ValideDatosCRUDUSER(proceso, datos)){
@@ -30,7 +31,7 @@ const crud_user = async (proceso, datos) => {
         : {
             statusCode: 403,
             datos: null,
-            msj: `${datos.user} no está registrado`,
+            msj: `${datos.user} / password incorrect`,
           };
     } else {
       return await {
@@ -46,8 +47,8 @@ const crud_user = async (proceso, datos) => {
     let DB = await prodct_schema
       .findOne({ owner: datos.owner, clav_prodct: datos.clav_prodct })
       .exec();
-    if (DB === null) {
-      console.log("bd selected... find user if exist");
+    if (DB !== null) {
+      console.log(DB.owner, "bd selected... goin to be find user if exist");
       const findUSerIfExist = await users_schema
         .findOne({
           user: datos.user,
@@ -58,8 +59,8 @@ const crud_user = async (proceso, datos) => {
       if (findUSerIfExist === null) {
         try {
           console.log("user dont exist. it going to be regist");
-          const resptoken = await genereToken(datos.user, process.env.PWS_JWT);
-          console.log(5, resptoken);
+          const resptoken = await genereToken(datos.user, env_.PSW_JWT);
+          console.log("token generated", resptoken);
           const newUser = await new users_schema({
             user: datos.user,
             pswLogin: datos.pswLogin,
@@ -95,7 +96,7 @@ const crud_user = async (proceso, datos) => {
         };
       }
     } else {
-      console.log("product not found");
+      console.log(DB, "product not found");
       return await {
         statusCode: 403,
         datos: null,

@@ -11,7 +11,6 @@ const { crud_user, FindAndUpdateToken } = require("./Queries/crud_user");
 router.post(
   "/users/regtr",
   (req, res, next) => {
-    Headers(res);
     ValideAuth(req.body.datos_, "regtr")
       ? next()
       : (req.statusCode =
@@ -23,6 +22,7 @@ router.post(
           }));
   },
   async (req, res) => {
+    await Headers(res);
     //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
     //modelar datos
@@ -59,7 +59,6 @@ router.post(
 router.post(
   "/users/auth",
   (req, res, next) => {
-    Headers(res);
     ValideAuth(req.body.datos_, "auth")
       ? next()
       : (req.statusCode =
@@ -71,6 +70,7 @@ router.post(
           }));
   },
   async (req, res) => {
+    await Headers(res);
     //informe datos ingresando
     console.log(["into", req.body.process_, req.body.datos_]);
     //modelar datos
