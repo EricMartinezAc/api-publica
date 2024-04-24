@@ -1,25 +1,21 @@
 const mongoose = require("mongoose");
 
 const Localidades_schema = mongoose.Schema({
-  id_localidades: {
-    type: String,
-    required: false,
-  },
   nombre_localidades: {
     type: String,
-    required: false,
+    required: true,
   },
   pais_localidades: {
     type: String,
-    required: false,
+    required: true,
   },
   ciudad_localidades: {
     type: String,
-    required: false,
+    required: true,
   },
   dpto_localidades: {
     type: String,
-    required: false,
+    required: true,
   },
   direccion_localidades: {
     type: String,

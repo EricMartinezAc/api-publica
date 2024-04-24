@@ -7,7 +7,7 @@ module.exports = async function verifyIntoAndToken(Bearer, req) {
       req.token = await Bearer.split(" ")[1];
       req.user = await Bearer.split(" ")[2];
       req.owner = await Bearer.split(" ")[3];
-      console.log([Bearer, req.token, req.user, req.owner]);
+      req.process = await Bearer.split(" ")[4];
       const resp = await jwt.verify(req.token, env_.PSW_JWT, (error, data) => {
         return error ? false : true;
       });

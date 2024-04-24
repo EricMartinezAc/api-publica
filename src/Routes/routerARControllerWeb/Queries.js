@@ -7,7 +7,7 @@ const Headers = require("./Middlewares/Headers");
 const { crud_locations } = require("./Queries/crud_locations");
 const verifyInToken = require("./Middlewares/verifyIntoAndToken");
 
-//### para get, solo buscar algo
+//### para get, todos los procesos de búsqueda
 router.get(
   "/locations/queries/find",
   (req, res, next) => {
@@ -16,16 +16,16 @@ router.get(
       : res.json({ statusCode: 403, msj: "verify token failure", data: null });
   },
   async () => {
-    Headers(res);
+    await Headers(res);
     //informe datos ingresando
-    console.log(["into", req.body.process_, req.body.datos_]);
+    console.log(["into", req.process, req.owner, req.user, req.token]);
     //modelar datos
-    const proceso = req.body.process_;
-    const token = req.body.token;
-    const owner = req.body.owner;
+    const proceso = req.process;
+    const token = req.token;
+    const owner = req.owner;
     try {
-      await Conexiondb(owner);
-      const respon = await crud_locations(owner, proceso, token);
+      await Conexiondb();
+      const respon = await crud_locations(process, { owner, user, token });
       console.log("response: ", respon);
       await res.json(respon);
     } catch (error) {
