@@ -17,7 +17,7 @@ const users_schema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  id_clav_prodct: {
+  id_prodct: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "prodct",
   },

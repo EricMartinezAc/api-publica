@@ -1,39 +1,39 @@
 const mongoose = require("mongoose");
 
-const Localidades_schema = mongoose.Schema({
-  nombre_localidades: {
+const location_schema = new mongoose.Schema({
+  nombreLocalidades: {
     type: String,
     required: true,
   },
-  pais_localidades: {
+  paisLocalidades: {
     type: String,
     required: true,
   },
-  ciudad_localidades: {
+  ciudadLocalidades: {
     type: String,
     required: true,
   },
-  dpto_localidades: {
+  dptoLocalidades: {
     type: String,
     required: true,
   },
-  direccion_localidades: {
+  direccionLocalidades: {
     type: String,
     required: false,
   },
-  contact_localidades: {
+  contactLocalidades: {
     type: String,
     required: false,
   },
-  email_localidades: {
+  emailLocalidades: {
     type: String,
     required: false,
   },
-  fileInput_proveedores: {
+  fileInputProveedores: {
     type: String,
     required: false,
   },
-  fileInput_zonas: {
+  fileInputZonas: {
     type: String,
     required: false,
   },
@@ -41,13 +41,14 @@ const Localidades_schema = mongoose.Schema({
     type: String,
     required: false,
   },
-  id_clav_user: {
+  typeLocalidades: {
+    type: String,
+    required: true,
+  },
+  id_user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
 });
 
-module.exports.Localidades_schema = mongoose.model(
-  "locations",
-  Localidades_schema
-);
+module.exports = mongoose.model("location", location_schema);

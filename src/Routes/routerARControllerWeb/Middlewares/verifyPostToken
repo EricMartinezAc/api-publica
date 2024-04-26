@@ -1,0 +1,11 @@
+module.exports = verifyPostToken = async (body) => {
+  if (
+    typeof body.process !== "undefined" &&
+    typeof body.datos !== "undefined" &&
+    typeof body.token !== "undefined"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};

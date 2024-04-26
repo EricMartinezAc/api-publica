@@ -19,7 +19,7 @@ const crud_user = async (proceso, datos) => {
         .findOne({
           user: datos.user,
           pswLogin: datos.pswLogin,
-          id_clav_prodct: DB._id,
+          id_prodct: DB._id,
         })
         .exec();
       return (await find) !== null
@@ -53,7 +53,7 @@ const crud_user = async (proceso, datos) => {
         .findOne({
           user: datos.user,
           pswLogin: datos.pswLogin,
-          id_clav_prodct: DB._id,
+          id_prodct: DB._id,
         })
         .exec();
       if (findUSerIfExist === null) {
@@ -66,7 +66,7 @@ const crud_user = async (proceso, datos) => {
             pswLogin: datos.pswLogin,
             token: resptoken,
             rol: datos.rol,
-            id_clav_prodct: DB._id,
+            id_prodct: DB._id,
           });
           const saved = await newUser.save();
           if (saved !== null) {
