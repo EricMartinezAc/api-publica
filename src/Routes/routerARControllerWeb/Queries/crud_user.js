@@ -104,6 +104,29 @@ const crud_user = async (proceso, datos) => {
       };
     }
   }
+  if (proceso === "user") {
+    try {
+      const userData = await users_schema.findOne({
+        user: datos.user,
+        token: datos.token,
+      });
+
+      return await {
+        statusCode: userData !== null ? 200 : 403,
+        datos: userData,
+        msj:
+          userData !== null
+            ? `${datos.user} ha sido cargado encontrado`
+            : `${datos.user} no encontrado`,
+      };
+    } catch (error) {
+      return await {
+        statusCode: 403,
+        datos: null,
+        msj: `${datos.user} con error: ${error}`,
+      };
+    }
+  }
 
   //} else{ ..}
 };

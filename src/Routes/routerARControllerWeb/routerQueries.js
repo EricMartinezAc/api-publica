@@ -3,26 +3,51 @@ const router = express.Router();
 
 //modulos bd
 const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongoARCweb");
-const Headers = require("./Middlewares/Headers");
+const { crud_user } = require("./Queries/crud_user");
 const { crud_locations } = require("./Queries/crud_locations");
+const Headers = require("./Middlewares/Headers");
+const ValideAuth = require("./Middlewares/ValideAuth");
 const verifyPostToken = require("./Middlewares/verifyPostToken");
 const verifyIntoAndToken = require("./Middlewares/verifyIntoAndToken");
 
-// {
-//   nombreLocalidades,
-//   paisLocalidades,
-//   ciudadLocalidades,
-//   dptoLocalidades,
-//   direccionLocalidades,
-//   contactLocalidades,
-//   emailLocalidades,
-//   fileInputProveedores,
-//   fileInputZonas,
-//   fileImgLocalidades,
-//   typeLocalidades,
-// }
+//### load datos iniciales
+router.post(
+  "/user",
+  (req, res, next) => {
+    ValideAuth(req.body)
+      ? next()
+      : (req.statusCode =
+          403 &
+          res.json({
+            statusCode: req.statusCode,
+            token: null,
+            msj: `no permitido ingreso de datos`,
+          }));
+  },
+  async (req, res) => {
+    await Headers(res);
+    //informe datos ingresando
+    console.log(["into", req.body]);
+    //proceso de
+    try {
+      await Conexiondb();
+      //registro de usuario
+      //response
+      const respon = await crud_user("user", req.body);
+      console.log("response:", respon);
+      await res.json(respon);
+      // almacenado con exito
+    } catch (error) {
+      res.json({
+        statusCode: 403,
+        token: null,
+        msj: `${req.body.user}: ${error}`,
+      });
+    }
+  }
+);
 
-//### para get, todos los procesos de búsqueda
+//### load
 
 router.get(
   "/locations/queries",
