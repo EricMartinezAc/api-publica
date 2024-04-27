@@ -1,4 +1,5 @@
-module.exports = verifyPostToken = async (body) => {
+module.exports = verifyPostToken = (body) => {
+  console.log([body.process, body.datos, body.token]);
   if (
     typeof body.process !== "undefined" &&
     typeof body.datos !== "undefined" &&

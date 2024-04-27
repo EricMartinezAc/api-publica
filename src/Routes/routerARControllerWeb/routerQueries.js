@@ -25,7 +25,7 @@ const verifyIntoAndToken = require("./Middlewares/verifyIntoAndToken");
 //### para get, todos los procesos de búsqueda
 
 router.get(
-  "/locations/queries/find",
+  "/locations/queries",
   (req, res, next) => {
     verifyIntoAndToken(req.headers["autorization"], req)
       ? next()
@@ -59,8 +59,9 @@ router.get(
 //### para add, todos los procesos de agregar localidad
 // in {process, datos, token}
 // out { statusCode, data, msj }
+
 router.post(
-  "/locations/queries/create",
+  "/locations/queries",
   (req, res, next) => {
     verifyPostToken(req.body)
       ? next()
@@ -68,24 +69,30 @@ router.post(
           403 &
           res.json({
             statusCode: 403,
-            data: null,
+            data: req.body,
             msj: `no permitido ingreso de datos`,
           }));
   },
   async (req, res) => {
     await Headers(res);
     //informe datos ingresando
-    console.log(["into", req.body.process, req.body.datos, req.body.token]);
+    console.log([
+      "into",
+      req.body.process,
+      req.body.datos,
+      req.body.user,
+      req.body.token,
+    ]);
     //proceso de add
     try {
       await Conexiondb();
       //registro de add
       //response
-      const respon = await crud_locations(
-        req.body.process,
-        req.body.datos,
-        req.body.token
-      );
+      const respon = await crud_locations(req.body.process, {
+        token: req.body.token,
+        datos: req.body.datos,
+        user: req.body.user,
+      });
       console.log("response:", respon);
       await res.json(respon);
       //await

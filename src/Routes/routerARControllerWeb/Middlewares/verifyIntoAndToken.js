@@ -13,7 +13,10 @@ module.exports = async function verifyIntoAndToken(Bearer, req, datos) {
       });
       return await resp;
     } else {
-      if (typeof datos !== "undefined") {
+      if (typeof req.body.token !== "undefined") {
+        await jwt.verify(req.body.token, env_.PSW_JWT, (error, data) => {
+          return error ? false : true;
+        });
         return true;
       } else {
         console.error("verifytoken", 403);
