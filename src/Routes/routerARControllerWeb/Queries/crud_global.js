@@ -1,11 +1,11 @@
 const users_schema = require("../Models/users_schema");
 const prodct_schema = require("../Models/products_schema");
+const areas_schema = require("../Models/areas_schema");
 const genereToken = require("../Middlewares/genereToken");
 const { env_ } = require("../Middlewares/comunResources");
 
 const crud_user = async (proceso, datos) => {
-  //if(ValideDatosCRUDUSER(proceso, datos)){
-  console.log("realizando CRUD: ", datos);
+  console.log("realizando CRUD user: ", datos);
   if (proceso === "auth") {
     //useDB:
     const DB = await prodct_schema
@@ -104,21 +104,54 @@ const crud_user = async (proceso, datos) => {
       };
     }
   }
-  if (proceso === "user") {
+};
+const loadData = async (proceso, datos) => {
+  console.log("realizando CRUD load data: ", datos);
+  if (proceso === "all") {
     try {
-      const userData = await users_schema.findOne({
-        user: datos.user,
-        token: datos.token,
+      const owner = await prodct_schema.findOne({ owner: datos.owner });
+      const userReq = await users_schema.findOne({
+        user: datos.datos.user,
+        token: datos.datos.token,
       });
-
-      return await {
-        statusCode: userData !== null ? 200 : 403,
-        datos: userData,
-        msj:
-          userData !== null
-            ? `${datos.user} ha sido cargado encontrado`
-            : `${datos.user} no encontrado`,
-      };
+      if (owner !== null && userReq !== null) {
+        const usersOfOwner = await users_schema.find({
+          id_prodct: owner._id,
+        });
+        if (usersOfOwner.length > 0) {
+          if (userReq.rol === "PO") {
+            let areas = await areas_schema.find({ id_prodct: owner._id });
+            return await {
+              statusCode: userReq !== null ? 200 : 403,
+              datos: { userReq, usersOfOwner, areas },
+              msj:
+                userReq !== null
+                  ? `${datos.user} ha sido cargado encontrado`
+                  : `${datos.user} no encontrado`,
+            };
+          }
+          if (userReq.rol === "PM") {
+            let areas = await areas_schema.find({
+              gerente: userReq._id,
+              id_prodct: owner._id,
+            });
+            return await {
+              statusCode: userReq !== null ? 200 : 403,
+              datos: { userReq, usersOfOwner, areas },
+              msj:
+                userReq !== null
+                  ? `${datos.user} ha sido cargado encontrado`
+                  : `${datos.user} no encontrado`,
+            };
+          }
+        }
+      } else {
+        return await {
+          statusCode: 203,
+          datos: null,
+          msj: `datos no encontrados`,
+        };
+      }
     } catch (error) {
       return await {
         statusCode: 403,
@@ -127,11 +160,9 @@ const crud_user = async (proceso, datos) => {
       };
     }
   }
-
-  //} else{ ..}
 };
 const FindAndUpdateToken = async (id, _token) => {
   return users_schema.findByIdAndUpdate({ _id: id }, { token: _token });
 };
 
-module.exports = { crud_user, FindAndUpdateToken };
+module.exports = { crud_user, loadData, FindAndUpdateToken };

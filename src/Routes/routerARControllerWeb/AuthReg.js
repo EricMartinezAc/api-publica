@@ -5,7 +5,7 @@ const Headers = require("./Middlewares/Headers");
 //modulos bd
 const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongoARCweb");
 const ValideAuth = require("./Middlewares/ValideAuth");
-const { crud_user, FindAndUpdateToken } = require("./Queries/crud_user");
+const { crud_user, FindAndUpdateToken } = require("./Queries/crud_global");
 
 //### REGISTRO
 router.post(
