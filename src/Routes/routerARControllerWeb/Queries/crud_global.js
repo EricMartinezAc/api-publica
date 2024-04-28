@@ -131,17 +131,17 @@ const loadData = async (proceso, datos) => {
             };
           }
           if (userReq.rol === "PM") {
-            let areas = await areas_schema.find({
+            let areas = await areas_schema.findOne({
               gerente: userReq._id,
               id_prodct: owner._id,
             });
             return await {
               statusCode: userReq !== null ? 200 : 403,
-              datos: { userReq, usersOfOwner, areas },
+              datos: { userReq, areas },
               msj:
                 userReq !== null
-                  ? `${datos.user} ha sido cargado encontrado`
-                  : `${datos.user} no encontrado`,
+                  ? `${datos.datos.user} ha sido cargado encontrado`
+                  : `${datos.datos.user} no encontrado`,
             };
           }
         }
@@ -156,7 +156,7 @@ const loadData = async (proceso, datos) => {
       return await {
         statusCode: 403,
         datos: null,
-        msj: `${datos.user} con error: ${error}`,
+        msj: `${datos.datos.user} con error: ${error}`,
       };
     }
   }
