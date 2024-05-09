@@ -1,6 +1,6 @@
 const users_schema = require("../Models/users_schema");
 const prodct_schema = require("../Models/products_schema");
-const areas_schema = require("../Models/areas_schema");
+const branch_schema = require("../Models/branch_schema");
 const genereToken = require("../Middlewares/genereToken");
 const { env_ } = require("../Middlewares/comunResources");
 
@@ -120,10 +120,10 @@ const loadData = async (proceso, datos) => {
         });
         if (usersOfOwner.length > 0) {
           if (userReq.rol === "PO") {
-            let areas = await areas_schema.find({ id_prodct: owner._id });
+            let branch = await branch_schema.find({ id_prodct: owner._id });
             return await {
               statusCode: userReq !== null ? 200 : 403,
-              datos: { userReq, usersOfOwner, areas },
+              datos: { userReq, usersOfOwner, branch },
               msj:
                 userReq !== null
                   ? `${datos.user} ha sido cargado encontrado`
@@ -131,13 +131,13 @@ const loadData = async (proceso, datos) => {
             };
           }
           if (userReq.rol === "PM") {
-            let areas = await areas_schema.findOne({
+            let branch = await branc_schema.findOne({
               gerente: userReq._id,
               id_prodct: owner._id,
             });
             return await {
               statusCode: userReq !== null ? 200 : 403,
-              datos: { userReq, areas },
+              datos: { userReq, branch },
               msj:
                 userReq !== null
                   ? `${datos.datos.user} ha sido cargado encontrado`

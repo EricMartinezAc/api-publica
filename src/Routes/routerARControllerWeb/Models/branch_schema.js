@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const areas_schemas = new mongoose.Schema({
-  area: {
+const branch_schema = new mongoose.Schema({
+  sucursal: {
     type: String,
     required: true,
   },
@@ -14,29 +14,44 @@ const areas_schemas = new mongoose.Schema({
     type: String,
     required: true,
   },
-  clasificacion: {
-    type: Array,
-    default: [],
-  },
-  inicioOp: {
+  tipo: {
     type: String,
     required: true,
   },
+  clasificacion: {
+    type: String,
+    required: true,
+  },
+  prioridad: {
+    type: Number,
+    required: true,
+  },
+  inicioOp: {
+    type: String,
+  },
   contactos: {
     type: Array,
     default: [],
   },
-  contactos: {
+  team: {
+    type: Array,
+    default: [],
+  },
+  imagen: {
+    type: Array,
+    default: [],
+  },
+  areas: {
+    type: Array,
+    default: [],
+  },
+  proveedores: {
     type: Array,
     default: [],
   },
   gerente: {
     type: mongoose.Types.ObjectId,
     required: true,
-  },
-  team: {
-    type: Array,
-    default: [],
   },
   id_prodct: {
     type: mongoose.Types.ObjectId,
@@ -45,4 +60,4 @@ const areas_schemas = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("area", areas_schemas);
+module.exports = mongoose.model("branch", branch_schema);
