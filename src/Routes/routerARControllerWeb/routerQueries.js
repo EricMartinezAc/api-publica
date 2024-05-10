@@ -53,7 +53,7 @@ router.post("/branch/add/any", async (req, res) => {
     console.log(["into", req.body]);
     await Conexiondb();
     //registro de branch
-    const respon = await postBranch("addAny", req.body);
+    const respon = await postBranch(req.body);
     //response
     console.log("response:", respon);
     await res.json(respon);
