@@ -23,7 +23,7 @@ const branch_schema = new mongoose.Schema({
     required: true,
   },
   prioridad: {
-    type: Number,
+    type: String,
     required: true,
   },
   inicioOp: {
@@ -50,7 +50,7 @@ const branch_schema = new mongoose.Schema({
     default: [],
   },
   gerente: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true,
   },
   id_prodct: {

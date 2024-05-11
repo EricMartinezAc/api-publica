@@ -46,21 +46,33 @@ router.post(
 );
 
 //### registro branch
-router.post("/branch/add/any", async (req, res) => {
-  try {
-    await Headers(res);
-    //informe datos ingresando
-    console.log(["into", req.body]);
-    await Conexiondb();
-    //registro de branch
-    const respon = await postBranch(req.body);
-    //response
-    console.log("response:", respon);
-    await res.json(respon);
-    // almacenado con exito
-  } catch (error) {
-    console.log("tt", error);
+router.post(
+  "/branch/add/any",
+  (req, res, next) => {
+    valideDataQueries(req.body)
+      ? next()
+      : res.json({
+          statusCode: 204,
+          datos: null,
+          msj: `Secuencia de datos incorrectos`,
+        });
+  },
+  async (req, res) => {
+    try {
+      await Headers(res);
+      //informe datos ingresando
+      console.log(["into", req.body]);
+      await Conexiondb();
+      //registro de branch
+      const respon = await postBranch(req.body);
+      //response
+      console.log("response:", respon);
+      await res.json(respon);
+      // almacenado con exito
+    } catch (error) {
+      console.log("tt", error);
+    }
   }
-});
+);
 
 module.exports = router;

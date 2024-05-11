@@ -7,7 +7,7 @@ const postBranch = async (datos) => {
   try {
     if (datos.process === "branch/add/any") {
       let branch = await branch_schema
-        .find({
+        .findOne({
           centroCosto: datos.data.centroCosto,
           id_prodct: datos.data.id_prodct,
         })
@@ -20,7 +20,7 @@ const postBranch = async (datos) => {
           datos: null,
           msj:
             respSave !== null
-              ? `${datos.datos.id_prodct} ha sido almacenado una nueva sucursal`
+              ? `${datos.data.id_prodct} ha sido almacenado una nueva sucursal`
               : `No se pud almacenar`,
         };
       } else {
@@ -31,7 +31,7 @@ const postBranch = async (datos) => {
         };
       }
     }
-    if (proceso === "edit") {
+    if (datos.process === "edit") {
       const respUpdate = await branch_schema
         .findByIdAndUpdate(datos.datos)
         .exec();
