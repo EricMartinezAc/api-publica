@@ -17,7 +17,7 @@ const postBranch = async (datos) => {
         const respSave = await newBranch.save();
         return await {
           statusCode: respSave !== null ? 200 : 203,
-          datos: null,
+          datos: respSave,
           msj:
             respSave !== null
               ? `${datos.data.id_prodct} ha sido almacenado una nueva sucursal`

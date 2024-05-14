@@ -58,6 +58,9 @@ const branch_schema = new mongoose.Schema({
     ref: "prodct",
     required: true,
   },
+  state: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("branch", branch_schema);
