@@ -9,7 +9,7 @@ router.get("/products/imgs", async (req, res) => {
   // clients.map((client,item)=>{
 
   // })
-  console.log(products);
+  console.log("PRODCT", products);
   res.json(clients);
 });
 

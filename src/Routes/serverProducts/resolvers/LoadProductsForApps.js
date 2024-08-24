@@ -1,53 +1,54 @@
-// const ExtractorImgsForProds = require("../services/ExtractorImgsForProds");
 const fs = require("fs");
+const path = require("path");
 
-const LoadProductsForApps = (clients, storageProducts) => {
-  const ExtractorImgsForProds = clients.map((client, item) => {
-    console.log(
-      "rute: ",
-      `${storageProducts}/${client.company._id}/${client.products[item].product_id}`
-    );
-    fs.readdir(
-      `${storageProducts}/${client.company._id}/${client.products[item].product_id}`,
-      (err, files) => {
-        if (err) {
-          console.log("Error al leer el directorio de imágenes", err);
-          return { error: "Error al leer el directorio de imágenes" };
-        }
+const sanitizeInput = (input) => {
+  return input.replace(/[^a-zA-Z0-9_-]/g, "");
+};
+
+const LoadProductsForApps = async (clients, storageProducts) => {
+  // Mapeamos los clientes para procesar sus productos
+  const ExtractorImgsForProdsPromises = clients.map(async (client) => {
+    // Mapeamos los productos de cada cliente para obtener sus rutas de imágenes
+    const productPromises = client.products.map(async (product) => {
+      const idClient = sanitizeInput(client.company._id);
+      const idProduct = sanitizeInput(product.product_id);
+
+      // Creamos la ruta segura a las imágenes
+      const imagesDir = path.join(storageProducts, idClient, idProduct);
+
+      // Leemos el directorio de imágenes y filtramos solo las imágenes
+      try {
+        const files = await fs.promises.readdir(imagesDir);
         const imageFiles = files.filter((file) =>
           file.match(/\.(jpg|jpeg|png|gif)$/)
         );
-        return { img: imageFiles };
-        // const imagePromises = imageFiles.map((file) => {
-        //   return new Promise((resolve, reject) => {
-        //     const filePath = path.join(imagesDir, file);
-        //     fs.readFile(filePath, (err, data) => {
-        //       if (err) {
-        //         reject(err);
-        //       } else {
-        //         const base64Image = `data:image/${path
-        //           .extname(file)
-        //           .slice(1)};base64,${data.toString("base64")}`;
-        //         resolve({
-        //           fileName: file,
-        //           base64: base64Image,
-        //         });
-        //       }
-        //     });
-        //   });
-        // });
-        // Promise.all(imagePromises)
-        //   .then((images) => {
-        //     res.json(images);
-        //   })
-        //   .catch((err) => {
-        //     console.log("Error al procesar las imágenes", err);
-        //     res.status(500).json({ error: "Error al procesar las imágenes" });
-        //   });
+
+        // Mapeamos las rutas de las imágenes
+        const images = imageFiles.map((file) => {
+          return {
+            origin: storageProducts,
+            fileName: file,
+            url: `${idClient}/${idProduct}/${file}`,
+          };
+        });
+
+        return images;
+      } catch (err) {
+        console.error("Error al leer el directorio de imágenes", err);
+        return [];
       }
-    );
+    });
+
+    // Esperamos a que todos los productos sean procesados y aplanamos el array
+    const productImages = await Promise.all(productPromises);
+    return productImages.flat(); // Aplanamos el array de imágenes
   });
-  return ExtractorImgsForProds;
+
+  // Esperamos a que todos los clientes sean procesados y aplanamos el array
+  const ExtractorImgsForProds = await Promise.all(
+    ExtractorImgsForProdsPromises
+  );
+  return ExtractorImgsForProds.flat(); // Aplanamos el array de resultados
 };
 
 module.exports = LoadProductsForApps;
