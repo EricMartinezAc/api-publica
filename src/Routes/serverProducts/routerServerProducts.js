@@ -4,13 +4,10 @@ const { employees, storageProducts } = require("./clients");
 const LoadProductsForApps = require("./resolvers/LoadProductsForApps");
 
 router.get("/products/imgs", async (req, res) => {
-  const clients = await employees();
-  const products = await LoadProductsForApps(clients, storageProducts);
-  // clients.map((client,item)=>{
+  const clients_ = await employees();
+  const products_ = await LoadProductsForApps(clients_, storageProducts);
 
-  // })
-  console.log("PRODCT", products);
-  res.json(clients);
+  res.json({ clients_, products_ });
 });
 
 // Ruta para servir una imagen específica en formato base64

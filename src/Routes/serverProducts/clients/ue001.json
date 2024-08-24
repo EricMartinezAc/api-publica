@@ -48,6 +48,7 @@
   "products": [
     {
       "product_id": "PROD001",
+      "client_id": "ue001",
       "name": "portfolio-72264.web.app",
       "imgType": "png",
       "description": "services and products portfolio.",
@@ -61,6 +62,7 @@
     },
     {
       "product_id": "PROD002",
+      "client_id": "ue001",
       "name": "industrial.automation.services",
       "description": "Servicio de diseño e implementación de automatización industrial",
       "category": "service",
@@ -73,6 +75,7 @@
     },
     {
       "product_id": "PROD003",
+      "client_id": "ue001",
       "name": "arcontroller-web",
       "description": "Servicio de diseño e implementación de automatización industrial",
       "category": "product",
