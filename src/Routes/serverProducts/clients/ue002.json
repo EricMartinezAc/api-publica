@@ -48,6 +48,7 @@
     "products": [
         {
             "product_id": "PROD001",
+            "client_id": "ue002",
             "name": "carlosperezsa.com",
             "imgType": "jpg",
             "description": "Corporate website for Carlos Perez S.A.",
@@ -56,11 +57,11 @@
             "subcategorie2": "corporate",
             "price": 150,
             "currency": "USD",
-            "stock_quantity": 100,
-            "imgs": 2
+            "stock_quantity": 100
         },
         {
             "product_id": "PROD002",
+            "client_id": "ue002",
             "name": "industrial.automation.solutions",
             "imgType": "jpg",
             "description": "Consulting services for industrial automation",
@@ -69,11 +70,11 @@
             "subcategorie2": "consulting",
             "price": 3.5,
             "currency": "USD",
-            "stock_quantity": 300,
-            "imgs": 4
+            "stock_quantity": 3004
         },
         {
             "product_id": "PROD003",
+            "client_id": "ue002",
             "name": "logistics-management-software",
             "imgType": "jpg",
             "description": "Logistics management software for large enterprises",
@@ -82,11 +83,11 @@
             "subcategorie2": "logistics",
             "price": 100,
             "currency": "USD",
-            "stock_quantity": 50,
-            "imgs": 3
+            "stock_quantity": 503
         },
         {
             "product_id": "PROD004",
+            "client_id": "ue002",
             "name": "custom-erp-system",
             "imgType": "jpg",
             "description": "Custom ERP system for manufacturing companies",
@@ -95,11 +96,11 @@
             "subcategorie2": "ERP",
             "price": 200,
             "currency": "USD",
-            "stock_quantity": 40,
-            "imgs": 5
+            "stock_quantity": 405
         },
         {
             "product_id": "PROD005",
+            "client_id": "ue002",
             "name": "industrial-automation-equipment",
             "imgType": "jpg",
             "description": "High-tech equipment for industrial automation",
@@ -108,11 +109,11 @@
             "subcategorie2": "industrial",
             "price": 500,
             "currency": "USD",
-            "stock_quantity": 20,
-            "imgs": 6
+            "stock_quantity": 206
         },
         {
             "product_id": "PROD006",
+            "client_id": "ue002",
             "name": "online-marketing-services",
             "imgType": "jpg",
             "description": "Comprehensive online marketing services",
@@ -121,11 +122,11 @@
             "subcategorie2": "online",
             "price": 75,
             "currency": "USD",
-            "stock_quantity": 150,
-            "imgs": 3
+            "stock_quantity": 1503
         },
         {
             "product_id": "PROD007",
+            "client_id": "ue002",
             "name": "business-intelligence-software",
             "imgType": "jpg",
             "description": "Business Intelligence software for data analysis",
@@ -134,11 +135,11 @@
             "subcategorie2": "BI",
             "price": 180,
             "currency": "USD",
-            "stock_quantity": 60,
-            "imgs": 4
+            "stock_quantity": 604
         },
         {
             "product_id": "PROD008",
+            "client_id": "ue002",
             "name": "e-commerce-platform",
             "imgType": "jpg",
             "description": "Complete e-commerce platform solution",
@@ -147,11 +148,11 @@
             "subcategorie2": "e-commerce",
             "price": 250,
             "currency": "USD",
-            "stock_quantity": 30,
-            "imgs": 5
+            "stock_quantity": 305
         },
         {
             "product_id": "PROD009",
+            "client_id": "ue002",
             "name": "network-infrastructure",
             "imgType": "jpg",
             "description": "Advanced network infrastructure setup",
@@ -160,11 +161,11 @@
             "subcategorie2": "networking",
             "price": 300,
             "currency": "USD",
-            "stock_quantity": 20,
-            "imgs": 3
+            "stock_quantity": 203
         },
         {
             "product_id": "PROD010",
+            "client_id": "ue002",
             "name": "cloud-storage-service",
             "imgType": "jpg",
             "description": "Secure cloud storage service for enterprises",
@@ -173,11 +174,11 @@
             "subcategorie2": "cloud",
             "price": 100,
             "currency": "USD",
-            "stock_quantity": 200,
-            "imgs": 2
+            "stock_quantity": 200
         },
         {
             "product_id": "PROD011",
+            "client_id": "ue002",
             "name": "cybersecurity-consulting",
             "imgType": "jpg",
             "description": "Comprehensive cybersecurity consulting services",
@@ -186,11 +187,11 @@
             "subcategorie2": "cybersecurity",
             "price": 500,
             "currency": "USD",
-            "stock_quantity": 10,
-            "imgs": 4
+            "stock_quantity": 104
         },
         {
             "product_id": "PROD012",
+            "client_id": "ue002",
             "name": "automated-logistics-robot",
             "imgType": "jpg",
             "description": "Automated robots for logistics and warehousing",
@@ -199,11 +200,11 @@
             "subcategorie2": "logistics",
             "price": 1000,
             "currency": "USD",
-            "stock_quantity": 5,
-            "imgs": 6
+            "stock_quantity": 56
         },
         {
             "product_id": "PROD013",
+            "client_id": "ue002",
             "name": "custom-crm-software",
             "imgType": "jpg",
             "description": "Custom CRM software for sales management",
@@ -212,11 +213,11 @@
             "subcategorie2": "CRM",
             "price": 120,
             "currency": "USD",
-            "stock_quantity": 80,
-            "imgs": 3
+            "stock_quantity": 803
         },
         {
             "product_id": "PROD014",
+            "client_id": "ue002",
             "name": "data-analytics-services",
             "imgType": "jpg",
             "description": "Data analytics services for business insights",
@@ -225,11 +226,11 @@
             "subcategorie2": "data",
             "price": 200,
             "currency": "USD",
-            "stock_quantity": 90,
-            "imgs": 5
+            "stock_quantity": 905
         },
         {
             "product_id": "PROD015",
+            "client_id": "ue002",
             "name": "warehouse-management-software",
             "imgType": "jpg",
             "description": "Software for efficient warehouse management",
@@ -238,11 +239,11 @@
             "subcategorie2": "warehouse",
             "price": 220,
             "currency": "USD",
-            "stock_quantity": 40,
-            "imgs": 4
+            "stock_quantity": 404
         },
         {
             "product_id": "PROD016",
+            "client_id": "ue002",
             "name": "industrial-sensor-solutions",
             "imgType": "jpg",
             "description": "Industrial sensors for real-time monitoring",
@@ -251,11 +252,11 @@
             "subcategorie2": "industrial",
             "price": 150,
             "currency": "USD",
-            "stock_quantity": 70,
-            "imgs": 3
+            "stock_quantity": 703
         },
         {
             "product_id": "PROD017",
+            "client_id": "ue002",
             "name": "custom-ai-solutions",
             "imgType": "jpg",
             "description": "Custom AI solutions for process automation",
@@ -264,11 +265,11 @@
             "subcategorie2": "automation",
             "price": 600,
             "currency": "USD",
-            "stock_quantity": 15,
-            "imgs": 5
+            "stock_quantity": 155
         },
         {
             "product_id": "PROD018",
+            "client_id": "ue002",
             "name": "predictive-maintenance-software",
             "imgType": "jpg",
             "description": "Software for predictive maintenance of equipment",
@@ -277,11 +278,11 @@
             "subcategorie2": "maintenance",
             "price": 300,
             "currency": "USD",
-            "stock_quantity": 30,
-            "imgs": 4
+            "stock_quantity": 304
         },
         {
             "product_id": "PROD019",
+            "client_id": "ue002",
             "name": "automated-quality-control",
             "imgType": "jpg",
             "description": "Automated quality control systems for production",
@@ -290,11 +291,11 @@
             "subcategorie2": "quality control",
             "price": 800,
             "currency": "USD",
-            "stock_quantity": 25,
-            "imgs": 6
+            "stock_quantity": 256
         },
         {
             "product_id": "PROD020",
+            "client_id": "ue002",
             "name": "enterprise-cloud-services",
             "imgType": "jpg",
             "description": "Enterprise-level cloud computing services",
@@ -303,11 +304,11 @@
             "subcategorie2": "cloud",
             "price": 400,
             "currency": "USD",
-            "stock_quantity": 50,
-            "imgs": 3
+            "stock_quantity": 503
         },
         {
             "product_id": "PROD022",
+            "client_id": "ue002",
             "name": "mobile-app-development",
             "imgType": "jpg",
             "description": "Custom mobile app development services",
@@ -316,11 +317,11 @@
             "subcategorie2": "mobile",
             "price": 250,
             "currency": "USD",
-            "stock_quantity": 60,
-            "imgs": 4
+            "stock_quantity": 604
         },
         {
             "product_id": "PROD027",
+            "client_id": "ue002",
             "name": "energy-management-system",
             "imgType": "jpg",
             "description": "Energy management systems for industrial facilities",
@@ -329,11 +330,11 @@
             "subcategorie2": "energy",
             "price": 750,
             "currency": "USD",
-            "stock_quantity": 10,
-            "imgs": 5
+            "stock_quantity": 105
         },
         {
             "product_id": "PROD030",
+            "client_id": "ue002",
             "name": "remote-monitoring-solutions",
             "imgType": "jpg",
             "description": "Remote monitoring solutions for industrial assets",
@@ -342,11 +343,11 @@
             "subcategorie2": "remote monitoring",
             "price": 450,
             "currency": "USD",
-            "stock_quantity": 25,
-            "imgs": 3
+            "stock_quantity": 253
         },
         {
             "product_id": "PROD032",
+            "client_id": "ue002",
             "name": "smart-factory-software",
             "imgType": "jpg",
             "description": "Smart factory software for automated production",
@@ -355,11 +356,11 @@
             "subcategorie2": "smart factory",
             "price": 650,
             "currency": "USD",
-            "stock_quantity": 15,
-            "imgs": 4
+            "stock_quantity": 154
         },
         {
             "product_id": "PROD034",
+            "client_id": "ue002",
             "name": "industrial-iot-platform",
             "imgType": "jpg",
             "description": "Industrial IoT platform for connected devices",
@@ -368,11 +369,11 @@
             "subcategorie2": "IoT",
             "price": 900,
             "currency": "USD",
-            "stock_quantity": 12,
-            "imgs": 5
+            "stock_quantity": 125
         },
         {
             "product_id": "PROD035",
+            "client_id": "ue002",
             "name": "augmented-reality-app",
             "imgType": "jpg",
             "description": "Augmented reality app development services",
@@ -381,11 +382,11 @@
             "subcategorie2": "development",
             "price": 400,
             "currency": "USD",
-            "stock_quantity": 50,
-            "imgs": 3
+            "stock_quantity": 503
         },
         {
             "product_id": "PROD036",
+            "client_id": "ue002",
             "name": "digital-twin-technology",
             "imgType": "jpg",
             "description": "Digital twin technology for asset management",
@@ -394,11 +395,11 @@
             "subcategorie2": "asset management",
             "price": 850,
             "currency": "USD",
-            "stock_quantity": 10,
-            "imgs": 4
+            "stock_quantity": 104
         },
         {
             "product_id": "PROD038",
+            "client_id": "ue002",
             "name": "3d-printing-services",
             "imgType": "jpg",
             "description": "3D printing services for industrial prototyping",
@@ -407,8 +408,7 @@
             "subcategorie2": "prototyping",
             "price": 500,
             "currency": "USD",
-            "stock_quantity": 30,
-            "imgs": 2
+            "stock_quantity": 30
         }
     ],
     "invoices": [

@@ -21,7 +21,7 @@ const LoadProductsForApps = async (clients, storageProducts) => {
         );
 
         // Mapeamos las rutas de las imágenes
-        const images = imageFiles.map((file) => {
+        const imgsProducts = imageFiles.map((file) => {
           return {
             client_id: idClient,
             fileName: file.split(".")[0],
@@ -29,7 +29,7 @@ const LoadProductsForApps = async (clients, storageProducts) => {
           };
         });
 
-        return images;
+        return imgsProducts;
       } catch (err) {
         console.error("Error al leer el directorio de imágenes", err);
         return [];

@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { employees, storageProducts } = require("./clients");
-const LoadProductsForApps = require("./resolvers/LoadProductsForApps");
+const { LoadProductsForApps, AddImageDataToProducts } = require("./resolvers");
 
 router.get("/products/imgs", async (req, res) => {
   const clients_ = await employees();
   const products_ = await LoadProductsForApps(clients_, storageProducts);
-
-  res.json({ clients_, products_ });
+  const updatedClients = AddImageDataToProducts(clients_, products_);
+  res.json(updatedClients);
 });
 
 // Ruta para servir una imagen específica en formato base64
