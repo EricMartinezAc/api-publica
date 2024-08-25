@@ -1,12 +1,18 @@
 const express = require("express");
 const cors_ = require("cors");
+const path = require("path");
 const routerCpannel = require("./src/Routes/Cpannel/routerCpannel");
 const routerARControllerAuthRegtr = require("./src/Routes/routerARControllerWeb/AuthReg");
 const routerARControllerApp = require("./src/Routes/routerARControllerWeb/App");
 const routerARControllerQueries = require("./src/Routes/routerARControllerWeb/routerQueries");
 const routerPlanets = require("./src/Routes/nasaAPI/routerPlanets");
+const routerServerProducts = require("./src/Routes/serverProducts/routerServerProducts");
 const App = express();
 require("dotenv").config();
+
+//statics
+const storagePath = path.join(__dirname, "static");
+App.use("/static", express.static(storagePath));
 
 // middlewares
 App.use(
@@ -27,6 +33,7 @@ App.use("/nasa/web/", routerPlanets);
 App.use("/arcontroller/web/", routerARControllerAuthRegtr);
 App.use("/arcontroller/web/", routerARControllerApp);
 App.use("/arcontroller/web/", routerARControllerQueries);
+App.use("/server/liive/", routerServerProducts);
 
 //Route 404
 App.use("*", (req, res) => {

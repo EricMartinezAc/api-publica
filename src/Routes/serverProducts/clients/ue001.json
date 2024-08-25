@@ -1,0 +1,166 @@
+{
+  "company": {
+    "_id": "ue001",
+    "name": "ingEricMartinezAc",
+    "type_legal_id": "cc",
+    "legal_id": "1140851982",
+    "persistent": {
+      "status": true
+    },
+    "address": {
+      "street": "Cra 12 #77B-67",
+      "city": "Soledad",
+      "state": "Atlántico",
+      "postal_code": "083010",
+      "country": "Colombia"
+    },
+    "contact": {
+      "phone": "+58 123-456-7890",
+      "email": "info@siheng.com",
+      "website": "https://portfolio-72264.web.app/"
+    },
+    "fiscal_info": {
+      "type_tax_id": "RUT",
+      "tax_id": "COQ123456",
+      "fiscal_address": {
+        "street": "Cra 12 #77B-67",
+        "city": "Soledad",
+        "state": "Atlántico",
+        "postal_code": "083010",
+        "country": "Colombia"
+      }
+    },
+    "bank_accounts": [
+      {
+        "bank_name": "Banco EricMartinezAc",
+        "account_number": "1234567890123456",
+        "account_type": "Corriente",
+        "currency": "COP"
+      },
+      {
+        "bank_name": "Banco Internacional EricMartinezAc",
+        "account_number": "6543210987654321",
+        "account_type": "Ahorro",
+        "currency": "USD"
+      }
+    ]
+  },
+  "products": [
+    {
+      "product_id": "PROD001",
+      "client_id": "ue001",
+      "name": "portfolio-72264.web.app",
+      "imgType": "png",
+      "description": "services and products portfolio.",
+      "category": "service",
+      "subcategorie": "software",
+      "subcategorie2": "all",
+      "price": 200,
+      "currency": "USD",
+      "stock_quantity": 1000,
+      "imgs": 1
+    },
+    {
+      "product_id": "PROD002",
+      "client_id": "ue001",
+      "name": "industrial.automation.services",
+      "description": "Servicio de diseño e implementación de automatización industrial",
+      "category": "service",
+      "subcategorie": "industrial",
+      "subcategorie2": "mechanical",
+      "price": 2.7,
+      "currency": "USD",
+      "stock_quantity": 500,
+      "imgs": 3
+    },
+    {
+      "product_id": "PROD003",
+      "client_id": "ue001",
+      "name": "arcontroller-web",
+      "description": "Servicio de diseño e implementación de automatización industrial",
+      "category": "product",
+      "subcategorie": "software",
+      "subcategorie2": "web",
+      "price": 50,
+      "currency": "USD",
+      "stock_quantity": 30,
+      "imgs": 5
+    }
+  ],
+  "invoices": [
+    {
+      "invoice_id": "INV001",
+      "client_id": "CLT001",
+      "date": "2024-08-01",
+      "due_date": "2024-08-15",
+      "items": [
+        {
+          "product_id": "PROD001",
+          "quantity": 100,
+          "unit_price": 2.5,
+          "total_price": 250
+        }
+      ],
+      "subtotal": 250,
+      "tax": 20,
+      "total": 270,
+      "currency": "USD",
+      "status": "Pending"
+    },
+    {
+      "invoice_id": "INV002",
+      "client_id": "CLT002",
+      "date": "2024-08-02",
+      "due_date": "2024-08-16",
+      "items": [
+        {
+          "product_id": "PROD002",
+          "quantity": 50,
+          "unit_price": 2.7,
+          "total_price": 135
+        }
+      ],
+      "subtotal": 135,
+      "tax": 10.8,
+      "total": 145.8,
+      "currency": "USD",
+      "status": "Paid"
+    }
+  ],
+  "payments": [
+    {
+      "payment_id": "PAY001",
+      "invoice_id": "INV002",
+      "amount": 145.8,
+      "currency": "USD",
+      "date": "2024-08-05",
+      "method": "Bank Transfer",
+      "status": "Completed"
+    }
+  ],
+  "expenses": [
+    {
+      "expense_id": "EXP001",
+      "description": "Compra de materias primas",
+      "supplier_id": "SUP001",
+      "amount": 500,
+      "currency": "USD",
+      "date": "2024-07-30",
+      "category": "Materia Prima",
+      "payment_status": "Completed"
+    }
+  ],
+  "taxes": [
+    {
+      "tax_id": "TAX001",
+      "description": "Impuesto sobre ventas",
+      "rate": 8.0,
+      "applies_to": [
+        "productos",
+        "servicios"
+      ],
+      "payment_status": "Pending",
+      "due_date": "2024-09-15"
+    }
+  ]
+}
