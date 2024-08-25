@@ -10,6 +10,9 @@ router.get("/products/imgs", async (req, res) => {
   res.json(updatedClients);
 });
 
+router.get("/products/img", async (req, res) => {
+  res.json({ hi: "now" });
+});
 // Ruta para servir una imagen específica en formato base64
 // router.get("/products/:imageName", (req, res) => {
 //   const imageName = req.params.imageName;
