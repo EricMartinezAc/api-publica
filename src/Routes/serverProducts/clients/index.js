@@ -3,8 +3,12 @@ const path = require("path");
 
 const storageProducts = path.join(
   __dirname,
-  "../../../..",
-  "static/storageProducts/"
+  "..",
+  "..",
+  "..",
+  "..",
+  "static",
+  "storageProducts"
 );
 const pathEmployees = path.join(__dirname);
 
