@@ -1,6 +1,8 @@
 const express = require("express");
 const cors_ = require("cors");
 const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
 const routerCpannel = require("./src/Routes/Cpannel/routerCpannel");
 const routerARControllerAuthRegtr = require("./src/Routes/routerARControllerWeb/AuthReg");
 const routerARControllerApp = require("./src/Routes/routerARControllerWeb/App");
@@ -11,8 +13,11 @@ const App = express();
 require("dotenv").config();
 
 //statics
-const storagePath = path.join(__dirname, "static");
-App.use("/static", express.static(storagePath));
+App.use(
+  "/server/liive/images",
+  express.static(path.join(__dirname, "storageProducts"))
+);
+
 
 // middlewares
 App.use(

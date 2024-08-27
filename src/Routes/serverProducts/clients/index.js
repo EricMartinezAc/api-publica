@@ -8,8 +8,9 @@ const storageProducts = path.join(
   "..",
   "..",
   "static",
-  "storageProducts"
+  "storageProducts/"
 );
+console.log("----------- ", storageProducts);
 const pathEmployees = path.join(__dirname);
 
 // Función para leer y filtrar archivos .json
@@ -17,7 +18,6 @@ const employees = async () => {
   try {
     // Leer los archivos del directorio
     const files = await fs.promises.readdir(pathEmployees);
-
     // Filtrar archivos .json y procesar cada uno
     const matchingFiles = await Promise.all(
       files

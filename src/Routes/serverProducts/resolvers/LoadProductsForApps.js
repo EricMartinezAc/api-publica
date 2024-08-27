@@ -11,8 +11,25 @@ const LoadProductsForApps = async (clients, storageProducts) => {
       const idProduct = sanitizeInput(product.product_id);
 
       // Creamos la ruta segura a las imágenes
-      const imagesDir = path.join(storageProducts, idClient, idProduct);
 
+      // const directoryPath = path.join(__dirname, 'storageProducts');
+
+      // fs.readdir(directoryPath, (err, files) => {
+      //   if (err) {
+      //     return res.status(500).json({ message: 'Error al leer el directorio de imágenes' });
+      //   }
+
+      //   // Mapear los archivos para devolver URLs relativas
+      //   const images = files.map(file => ({
+      //     filename: file,
+      //     url: `/images/${file}`
+      //   }));
+
+      //   res.json(images);
+      // });
+
+      const imagesDir = path.join(storageProducts, idClient, idProduct);
+      console.log(imagesDir);
       try {
         // Leemos el directorio de imágenes de manera asincrónica y filtramos solo las imágenes
         const files = await fs.promises.readdir(imagesDir);
@@ -23,6 +40,7 @@ const LoadProductsForApps = async (clients, storageProducts) => {
         // Mapeamos las rutas de las imágenes
         const imgsProducts = imageFiles.map((file) => {
           return {
+            storageProducts,
             client_id: idClient,
             fileName: file.split(".")[0],
             url: `${storageProducts}${idClient}\\${idProduct}\\${file}`,
