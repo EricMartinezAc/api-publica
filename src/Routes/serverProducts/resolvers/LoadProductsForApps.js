@@ -41,6 +41,8 @@ const LoadProductsForApps = async (clients, storageProducts) => {
         // Mapeamos las rutas de las imágenes
         const imgsProducts = imageFiles.map((file) => {
           return {
+            imagesDir,
+            imageFiles,
             storageProducts,
             client_id: idClient,
             fileName: file.split(".")[0],

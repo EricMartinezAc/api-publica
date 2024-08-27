@@ -6,8 +6,8 @@ const { LoadProductsForApps, AddImageDataToProducts } = require("./resolvers");
 router.get("/products/imgs", async (req, res) => {
   const clients_ = await employees();
   const products_ = await LoadProductsForApps(clients_, storageProducts);
-  const updatedClients = AddImageDataToProducts(clients_, products_);
-  res.json({ products_, updatedClients });
+  //const updatedClients = AddImageDataToProducts(clients_, products_);
+  res.json({ products_, clients_ });
 });
 
 router.get("/products/img", async (req, res) => {
