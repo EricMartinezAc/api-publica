@@ -12,7 +12,7 @@ const LoadProductsForApps = async (clients, storageProducts) => {
 
       // Creamos la ruta segura a las imágenes
 
-      // const directoryPath = path.join(__dirname, 'storageProducts');
+      // const directoryPath = path.join(__dirname, "../../static/storageProducts");
 
       // fs.readdir(directoryPath, (err, files) => {
       //   if (err) {
@@ -22,14 +22,15 @@ const LoadProductsForApps = async (clients, storageProducts) => {
       //   // Mapear los archivos para devolver URLs relativas
       //   const images = files.map(file => ({
       //     filename: file,
-      //     url: `/images/${file}`
+      //     url: `/server/liive/imgs/${file}`
       //   }));
 
-      //   res.json(images);
+      //   // Enviar el objeto JSON con la lista de imágenes
+      //   res.status(200).json(images);
       // });
 
       const imagesDir = path.join(storageProducts, idClient, idProduct);
-      console.log(imagesDir);
+
       try {
         // Leemos el directorio de imágenes de manera asincrónica y filtramos solo las imágenes
         const files = await fs.promises.readdir(imagesDir);
