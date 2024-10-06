@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const users_schema = new mongoose.Schema({
   user: {
     type: String,
-    required: false,
+    required: true,
   },
   pswLogin: {
     type: String,
-    required: false,
+    required: true,
   },
   token: {
     type: String,
@@ -15,11 +15,12 @@ const users_schema = new mongoose.Schema({
   },
   rol: {
     type: String,
-    required: false,
+    required: true,
   },
   id_prodct: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "prodct",
+    type: String,
+    // mongoose.Schema.Types.ObjectId,
+    // ref: "prodct",
   },
 });
 

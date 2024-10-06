@@ -3,9 +3,10 @@ const router = express.Router();
 const Headers = require("./Middlewares/Headers");
 
 //modulos bd
-const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongoARCweb");
 const ValideAuth = require("./Middlewares/ValideAuth");
 const { crud_user, FindAndUpdateToken } = require("./Queries/crud_global");
+const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongoARCweb");
+const genereToken = require("./Middlewares/genereToken");
 
 //### REGISTRO
 router.post(
@@ -24,13 +25,13 @@ router.post(
   async (req, res) => {
     await Headers(res);
     //informe datos ingresando
-    console.log(["into", req.body.process_, req.body.datos_]);
+    console.log(["into regtr", req.body.process_, req.body.datos_]);
     //modelar datos
     const { owner, clav_prodct, user, pswLogin, rol } = req.body.datos_;
-
-    //proceso de regtr
+    //proceso .....
     try {
-      await Conexiondb();
+      const dominio = owner.split("@")[1].split(".").slice(0, -1).join(".");
+      await Conexiondb(dominio);
       //registro de usuario
       //response
       const respon = await crud_user(req.body.process_, {
@@ -41,10 +42,11 @@ router.post(
         rol,
       });
       console.log("response:", respon);
+      if(respon.statusCode === 200){
+        const token = await genereToken(user)
+        respon.datos.token = token
+      }
       await res.json(respon);
-      //await
-      //res.json();
-      // almacenado con exito
     } catch (error) {
       res.json({
         statusCode: 403,
@@ -72,12 +74,13 @@ router.post(
   async (req, res) => {
     await Headers(res);
     //informe datos ingresando
-    console.log(["into", req.body.process_, req.body.datos_]);
+    console.log(["into auth", req.body.process_, req.body.datos_]);
     //modelar datos
     const { owner, user, pswLogin } = req.body.datos_;
-    //proceso de regtr
+    //proceso ....
     try {
-      await Conexiondb();
+      const dominio = owner.split("@")[1].split(".").slice(0, -1).join(".");
+      await Conexiondb(dominio);
       //registro de usuario
       //response
       const respon = await crud_user(req.body.process_, {
@@ -86,8 +89,11 @@ router.post(
         pswLogin,
       });
       console.log("response:", respon);
-      await res.json(respon);
-      // almacenado con exito
+      if(respon.statusCode === 200){
+        const token = await genereToken(user)
+        respon.datos.token = token
+      }
+     await res.json(respon);
     } catch (error) {
       res.json({
         statusCode: 403,

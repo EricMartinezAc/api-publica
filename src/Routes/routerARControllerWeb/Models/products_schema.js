@@ -9,6 +9,10 @@ const prodct_schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  stat: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("prodct", prodct_schema);

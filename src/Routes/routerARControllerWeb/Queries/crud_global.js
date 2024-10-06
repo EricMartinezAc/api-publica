@@ -7,19 +7,21 @@ const { env_ } = require("../Middlewares/comunResources");
 const crud_user = async (proceso, datos) => {
   console.log("realizando CRUD user: ", datos);
   if (proceso === "auth") {
-    //useDB:
+    //Encuentre el producto:
+    console.log("buscando .. ");
     const DB = await prodct_schema
       .findOne({
         owner: datos.owner,
+        stat: true,
       })
       .exec();
-    //findUSer:
+    //Encuentre usuario:
     if (DB !== null) {
       const find = await users_schema
         .findOne({
           user: datos.user,
           pswLogin: datos.pswLogin,
-          id_prodct: DB._id,
+          id_prodct: DB._id.toString(),
         })
         .exec();
       return (await find) !== null
@@ -42,10 +44,14 @@ const crud_user = async (proceso, datos) => {
     }
   }
   if (proceso === "regtr") {
-    //useDB
-    console.log("register user...");
+    //encuentre el producto
+    console.log("registrando ..");
     let DB = await prodct_schema
-      .findOne({ owner: datos.owner, clav_prodct: datos.clav_prodct })
+      .findOne({
+        owner: datos.owner,
+        clav_prodct: datos.clav_prodct,
+        stat: true,
+      })
       .exec();
     if (DB !== null) {
       console.log(DB.owner, "bd selected... goin to be find user if exist");
@@ -53,13 +59,13 @@ const crud_user = async (proceso, datos) => {
         .findOne({
           user: datos.user,
           pswLogin: datos.pswLogin,
-          id_prodct: DB._id,
+          id_prodct: DB._id.toString(),
         })
         .exec();
       if (findUSerIfExist === null) {
         try {
           console.log("user dont exist. it going to be regist");
-          const resptoken = await genereToken(datos.user, env_.PSW_JWT);
+          const resptoken = await genereToken(datos.user, process.env.PSW_JWT);
           console.log("token generated", resptoken);
           const newUser = await new users_schema({
             user: datos.user,

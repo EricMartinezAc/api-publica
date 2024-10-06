@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = async function genereToken(name, psw) {
+module.exports = async function genereToken(name) {
   return await jwt.sign(
     name + ";" + String(new Date(Date.now()).getDate()),
-    psw
+    process.env.PSW_JWT
   );
 };
