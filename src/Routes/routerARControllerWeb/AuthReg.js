@@ -81,13 +81,13 @@ router.post(
     try {
       const dominio = owner.split("@")[1].split(".").slice(0, -1).join(".");
       await Conexiondb(dominio);
-      //registro de usuario
-      //response
+
       const respon = await crud_user(req.body.process_, {
         owner,
         user,
         pswLogin,
       });
+      respon.datos.pswLogin = ''
       console.log("response:", respon);
       if(respon.statusCode === 200){
         const token = await genereToken(user)
@@ -98,7 +98,7 @@ router.post(
       res.json({
         statusCode: 403,
         token: null,
-        msj: `${user}: ${error}`,
+        msj: `${user}...: ${error}`,
       });
     }
   }

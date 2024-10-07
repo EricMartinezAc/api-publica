@@ -49,13 +49,8 @@ const branch_schema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  gerente: {
-    type: mongoose.Types.ObjectId,
-    required: true,
-  },
-  id_prodct: {
-    type: mongoose.Types.ObjectId,
-    ref: "prodct",
+  id_user: {
+    type: String,
     required: true,
   },
 });

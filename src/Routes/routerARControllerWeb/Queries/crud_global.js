@@ -17,24 +17,32 @@ const crud_user = async (proceso, datos) => {
       .exec();
     //Encuentre usuario:
     if (DB !== null) {
-      const find = await users_schema
+      const userFound = await users_schema
         .findOne({
           user: datos.user,
           pswLogin: datos.pswLogin,
           id_prodct: DB._id.toString(),
         })
         .exec();
-      return (await find) !== null
-        ? {
-            statusCode: 200,
-            datos: find,
-            msj: `${datos.user} Bienvenido de vuelta`,
-          }
-        : {
-            statusCode: 403,
-            datos: null,
-            msj: `${datos.user} / password incorrect`,
-          };
+      if (userFound !== null) {
+        const branchesLoad =
+          userFound.rol === "PO"
+            ? await branch_schema.find({})
+            : await branch_schema.findOne({
+                id_user: userFound._id.toString(),
+              });
+        return {
+          statusCode: 200,
+          datos: userFound,
+          branchesLoad: branchesLoad || "",
+          msj: `${datos.user} Bienvenido de vuelta`,
+        };
+      } else {
+        return {
+          statusCode: 403,
+          msj: `${datos.user} / password incorrect`,
+        };
+      }
     } else {
       return await {
         statusCode: 403,
@@ -111,6 +119,7 @@ const crud_user = async (proceso, datos) => {
     }
   }
 };
+
 const loadData = async (proceso, datos) => {
   console.log("realizando CRUD load data: ", datos);
   if (proceso === "all") {
@@ -167,6 +176,7 @@ const loadData = async (proceso, datos) => {
     }
   }
 };
+
 const FindAndUpdateToken = async (id, _token) => {
   return users_schema.findByIdAndUpdate({ _id: id }, { token: _token });
 };
