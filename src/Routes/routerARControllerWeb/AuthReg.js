@@ -7,6 +7,7 @@ const ValideAuth = require("./Middlewares/ValideAuth");
 const { crud_user, FindAndUpdateToken } = require("./Queries/crud_global");
 const Conexiondb = require("../../DBase_setup/Mongoose/ConexionMongoARCweb");
 const genereToken = require("./Middlewares/genereToken");
+const { ActualiceTokenUser } = require("./Middlewares/ActualiceTokenUser");
 
 //### REGISTRO
 router.post(
@@ -42,9 +43,9 @@ router.post(
         rol,
       });
       console.log("response:", respon);
-      if(respon.statusCode === 200){
-        const token = await genereToken(user)
-        respon.datos.token = token
+      if (respon.statusCode === 200) {
+        const token = await genereToken(user);
+        respon.datos.token = token;
       }
       await res.json(respon);
     } catch (error) {
@@ -87,13 +88,19 @@ router.post(
         user,
         pswLogin,
       });
-      respon.datos.pswLogin = ''
+      respon.datos.pswLogin = "";
       console.log("response:", respon);
-      if(respon.statusCode === 200){
-        const token = await genereToken(user)
-        respon.datos.token = token
+      if (respon.statusCode === 200) {
+        const token = await genereToken(user);
+        respon.datos.token = token;
+        const tokenActualizated = await ActualiceTokenUser(
+          respon.datos._id,
+          token
+        );
+        if (tokenActualizated === null)
+          throw new Error("No se pudo actualizar token");
       }
-     await res.json(respon);
+      await res.json(respon);
     } catch (error) {
       res.json({
         statusCode: 403,

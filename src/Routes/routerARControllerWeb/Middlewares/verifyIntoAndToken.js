@@ -11,10 +11,14 @@ module.exports = async function verifyIntoAndToken(Bearer, req, datos) {
       const resp = await jwt.verify(req.token, env_.PSW_JWT, (error, data) => {
         return error ? false : true;
       });
-      return await resp;
+      {
+        console.log(`${token}: verified`);
+        return await resp;
+      }
     } else {
       if (typeof req.body.token !== "undefined") {
         await jwt.verify(req.body.token, env_.PSW_JWT, (error, data) => {
+          console.log(`${token}: refused`);
           return error ? false : true;
         });
         return true;

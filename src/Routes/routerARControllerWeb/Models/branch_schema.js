@@ -5,14 +5,29 @@ const branch_schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ubicacion: {
-    type: Array,
+  pais: {
+    type: String,
     required: true,
-    default: [], //pais region ciudad direccion gpsData
+  },
+  ciudad: {
+    type: String,
+    required: true,
+  },
+  dpto: {
+    type: String,
+    required: true,
+  },
+  direccion: {
+    type: String,
+    required: true,
   },
   centroCosto: {
     type: String,
     required: true,
+  },
+  jerarquia: {
+    type: String,
+    required: false,
   },
   tipo: {
     type: String,
@@ -23,23 +38,32 @@ const branch_schema = new mongoose.Schema({
     required: true,
   },
   prioridad: {
-    type: Number,
+    type: String,
     required: true,
+  },
+  politica: {
+    type: Array,
+    required: false,
   },
   inicioOp: {
     type: String,
+    required: true,
   },
-  contactos: {
-    type: Array,
-    default: [],
+  contacto: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: false,
   },
   team: {
     type: Array,
     default: [],
   },
   imagen: {
-    type: Array,
-    default: [],
+    type: String,
+    required: false,
   },
   areas: {
     type: Array,
@@ -49,9 +73,13 @@ const branch_schema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  id_user: {
-    type: String,
-    required: true,
+  rrhh: {
+    type: Array,
+    default: [],
+  },
+  state: {
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -8,13 +8,14 @@ const crud_user = async (proceso, datos) => {
   console.log("realizando CRUD user: ", datos);
   if (proceso === "auth") {
     //Encuentre el producto:
-    console.log("buscando .. ");
+    console.log("buscando .. ", [datos.owner]);
     const DB = await prodct_schema
       .findOne({
         owner: datos.owner,
         stat: true,
       })
       .exec();
+    console.log(1, [DB, datos.pswLogin]);
     //Encuentre usuario:
     if (DB !== null) {
       const userFound = await users_schema
@@ -24,17 +25,11 @@ const crud_user = async (proceso, datos) => {
           id_prodct: DB._id.toString(),
         })
         .exec();
+      console.log(2, userFound);
       if (userFound !== null) {
-        const branchesLoad =
-          userFound.rol === "PO"
-            ? await branch_schema.find({})
-            : await branch_schema.findOne({
-                id_user: userFound._id.toString(),
-              });
         return {
           statusCode: 200,
           datos: userFound,
-          branchesLoad: branchesLoad || "",
           msj: `${datos.user} Bienvenido de vuelta`,
         };
       } else {
@@ -120,46 +115,27 @@ const crud_user = async (proceso, datos) => {
   }
 };
 
-const loadData = async (proceso, datos) => {
-  console.log("realizando CRUD load data: ", datos);
-  if (proceso === "all") {
+const loadData = async (proceso, owner, token, _id) => {
+  if (proceso === "loadAllData") {
     try {
-      const owner = await prodct_schema.findOne({ owner: datos.owner });
-      const userReq = await users_schema.findOne({
-        user: datos.datos.user,
-        token: datos.datos.token,
-      });
-      if (owner !== null && userReq !== null) {
-        const usersOfOwner = await users_schema.find({
-          id_prodct: owner._id,
-        });
-        if (usersOfOwner.length > 0) {
-          if (userReq.rol === "PO") {
-            let branch = await branch_schema.find({ id_prodct: owner._id });
-            return await {
-              statusCode: userReq !== null ? 200 : 403,
-              datos: { userReq, usersOfOwner, branch },
-              msj:
-                userReq !== null
-                  ? `${datos.user} ha sido cargado encontrado`
-                  : `${datos.user} no encontrado`,
-            };
-          }
-          if (userReq.rol === "PM") {
-            let branch = await branc_schema.findOne({
-              gerente: userReq._id,
-              id_prodct: owner._id,
-            });
-            return await {
-              statusCode: userReq !== null ? 200 : 403,
-              datos: { userReq, branch },
-              msj:
-                userReq !== null
-                  ? `${datos.datos.user} ha sido cargado encontrado`
-                  : `${datos.datos.user} no encontrado`,
-            };
-          }
-        }
+      console.log(1000, token);
+      const userFetcher = await users_schema
+        .findOne({
+          token,
+        })
+        .exec();
+      console.log(1111, userFetcher);
+      const branchResp =
+        userFetcher.rol === "PO"
+          ? await branch_schema.find()
+          : await branch_schema.findOne({ id_user: userFetcher._id.toString });
+
+      if (branchResp !== null) {
+        return await {
+          statusCode: 200,
+          datos: { branchResp },
+          msj: "datos cargados con exito",
+        };
       } else {
         return await {
           statusCode: 203,

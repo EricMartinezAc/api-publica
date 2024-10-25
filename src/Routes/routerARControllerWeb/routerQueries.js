@@ -10,7 +10,7 @@ const valideDataQueries = require("./Middlewares/valideDataQueries");
 
 //### load datos iniciales
 router.post(
-  "/user",
+  "/loadAllData",
   (req, res, next) => {
     valideDataQueries(req.body)
       ? next()
@@ -25,17 +25,20 @@ router.post(
   async (req, res) => {
     await Headers(res);
     //informe datos ingresando
-    console.log(["into", req.body]);
+    console.log(["into load data", req.body]);
+    //modelar datos
+    const { owner, token, _id } = req.body;
     //proceso de
     try {
-      await Conexiondb();
-      //registro de usuario
+      const dominio = owner.split("@")[1].split(".").slice(0, -1).join(".");
+      await Conexiondb(dominio);
       //response
-      const respon = await loadData("all", req.body);
+      const respon = await loadData("loadAllData", owner, token, _id);
       console.log("response:", respon);
       await res.json(respon);
       // almacenado con exito
     } catch (error) {
+      console.error(error);
       res.json({
         statusCode: 403,
         token: null,
@@ -51,9 +54,12 @@ router.post("/branch/add/any", async (req, res) => {
     await Headers(res);
     //informe datos ingresando
     console.log(["into", req.body]);
-    await Conexiondb();
+    //modelar datos
+    const { owner } = req.body;
     //registro de branch
-    const respon = await postBranch("addAny", req.body);
+    const dominio = owner.split("@")[1].split(".").slice(0, -1).join(".");
+    await Conexiondb(dominio);
+    const respon = await postBranch("branch/add/any", req.body);
     //response
     console.log("response:", respon);
     await res.json(respon);
